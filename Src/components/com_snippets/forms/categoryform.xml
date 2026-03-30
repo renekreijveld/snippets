@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+  <fieldset>
+    <field name="id" type="text" readonly="true" class="readonly" default="0" description="JGLOBAL_FIELD_ID_DESC"/>
+    <field name="title" filter="safehtml" type="text" required="true" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" hint="SNIPPETS_FORM_LBL_CATEGORY_TITLE"/>
+    <field name="alias" type="text" class="inputbox" generator="title" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" hint="SNIPPETS_FORM_LBL_CATEGORY_ALIAS"/>
+    <field name="description" editor="|" buttons="false" filter="\Joomla\CMS\Component\ComponentHelper::filterText" type="editor" label="JGLOBAL_DESCRIPTION" description="SNIPPETS_FORM_DESC_CATEGORY_DESCRIPTION" hint="SNIPPETS_FORM_LBL_CATEGORY_DESCRIPTION"/>
+    <field name="published" default="1" type="list" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="inputbox" size="1">
+      <option value="1">JPUBLISHED</option>
+      <option value="0">JUNPUBLISHED</option>
+    </field>
+    <field name="access" type="accesslevel" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" default="1"/>
+    <field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL" description="JFIELD_LANGUAGE_DESC" default="*">
+      <option value="*">JALL</option>
+    </field>
+    <field name="extension" type="hidden" default="com_snippets.snippets"/>
+    <field name="checked_out" type="hidden" filter="unset"/>
+    <field name="checked_out_time" type="hidden" filter="unset"/>
+  </fieldset>
+</form>

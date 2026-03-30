@@ -1,0 +1,51 @@
+/**
+ * @version     1.0.0
+ * @package     com_snippets
+ * @copyright   2026 CMSBouwers
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      CMSBouwers <info@cmsbouwers.nl>
+ */
+
+.btn.btn-mini {
+    --btn-padding-y: .2rem;
+    --btn-padding-x: .35rem;
+    --btn-font-size: .800rem;
+}
+
+ .snippetCategory {
+    max-width: 300px !important;
+}
+
+.snippetCategories li,
+.snippetCategory li {
+    margin-bottom: 2px;
+}
+
+.snippetCategories li a,
+.snippetCategory li a {
+    text-decoration: none;
+    display: block;
+    padding: 3px 8px 3px 8px;
+    border-radius: var(--border-radius-lg);
+}
+
+.snippetCategories li.current a,
+.snippetCategory li.current a {
+    text-decoration: none;
+    background-color: #010156;
+    color: #ffffff;
+    display: block;
+}
+
+.snippetCategories li a:hover,
+.snippetCategory li a:hover {
+    text-decoration: none;
+    background-color: var(--gray-400);
+    color: #010156;
+}
+
+.snippet pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}

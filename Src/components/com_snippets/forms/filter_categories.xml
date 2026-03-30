@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field name="search" type="text" hint="SNIPPETS_SEARCH_FILTER_SUBMIT" label="COM_USERS_FILTER_SEARCH_DESC" class="js-stools-search-string" />
+    </fields>
+    <fields name="list">
+        <field name="fullordering" type="list" label="SNIPPETS_LIST_FULL_ORDERING" description="SNIPPETS_LIST_FULL_ORDERING_DESC" onchange="this.form.submit();" default="a.lft ASC">
+            <option value="">JGLOBAL_SORT_BY</option>
+            <option value="a.title ASC">SNIPPETS_TITLE_ASC</option>
+            <option value="a.title DESC">SNIPPETS_TITLE_DESC</option>
+            <option value="a.lft ASC">SNIPPETS_ORDERING_ASC</option>
+            <option value="a.lft DESC">SNIPPETS_ORDERING_DESC</option>
+            <option value="a.published ASC">SNIPPETS_STATE_ASC</option>
+            <option value="a.published DESC">SNIPPETS_STATE_DESC</option>
+        </field>
+
+        <field name="limit" type="limitbox" label="SNIPPETS_LIST_LIMIT" description="SNIPPETS_LIST_LIMIT_DESC" class="input-mini" default="25" onchange="this.form.submit();" />
+    </fields>
+</form>

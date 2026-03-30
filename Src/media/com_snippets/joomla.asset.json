@@ -1,0 +1,84 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_snippets",
+  "version": "1.0.0",
+  "license": "GNU General Public License version 2 or later; see LICENSE.txt",
+  "assets": [
+    {
+      "name": "com_snippets.admin",
+      "type": "style",
+      "uri": "com_snippets/admin.css"
+    },
+    {
+      "name": "com_snippets.admin",
+      "type": "script",
+      "uri": "com_snippets/admin.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_snippets.highlight",
+      "type": "script",
+      "uri": "com_snippets/highlight.min.js"
+    },
+    {
+      "name": "com_snippets.bash",
+      "type": "script",
+      "uri": "com_snippets/bash.min.js"
+    },
+    {
+      "name": "com_snippets.css",
+      "type": "script",
+      "uri": "com_snippets/css.min.js"
+    },
+    {
+      "name": "com_snippets.javascript",
+      "type": "script",
+      "uri": "com_snippets/javascript.min.js"
+    },
+    {
+      "name": "com_snippets.json",
+      "type": "script",
+      "uri": "com_snippets/json.min.js"
+    },
+    {
+      "name": "com_snippets.php",
+      "type": "script",
+      "uri": "com_snippets/php.min.js"
+    },
+    {
+      "name": "com_snippets.scss",
+      "type": "script",
+      "uri": "com_snippets/scss.min.js"
+    },
+    {
+      "name": "com_snippets.sql",
+      "type": "script",
+      "uri": "com_snippets/sql.min.js"
+    },
+    {
+      "name": "com_snippets.xml",
+      "type": "script",
+      "uri": "com_snippets/xml.min.js"
+    },
+    {
+      "name": "com_snippets.highlight",
+      "type": "style",
+      "uri": "com_snippets/default.min.css"
+    },
+    {
+      "name": "com_snippets.tomorrow-night-blue",
+      "type": "style",
+      "uri": "com_snippets/tomorrow-night-blue.min.css"
+    },
+    {
+        "name": "com_snippets.snippets",
+        "type": "style",
+        "uri": "com_snippets/snippets.css"
+    }
+  ]
+}

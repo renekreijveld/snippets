@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" method="upgrade">
+    <name>Snippets</name>
+    <packagename>snippets</packagename>
+    <creationDate>2026-03-28</creationDate>
+    <author>René Kreijveld</author>
+    <authorEmail>email@renekreijveld.nl</authorEmail>
+    <authorUrl>https://github.com/renekreijveld</authorUrl>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <copyright>2026 René Kreijveld Webdevelopment</copyright>
+    <version>1.0.2</version>
+
+    <files>
+        <file type="library" id="Snippets">lib_snippets.zip</file>
+        <file type="component" id="com_snippets">com_snippets.zip</file>
+    </files>
+</extension>

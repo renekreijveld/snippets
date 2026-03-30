@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="4.0" method="upgrade">
+    <name>com_snippets</name>
+    <creationDate>2026-03-28</creationDate>
+    <copyright>2026 René Kreijveld Webdevelopment</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <author>René Kreijveld</author>
+    <authorEmail>email@renekreijveld.nl</authorEmail>
+    <authorUrl>https://github.com/renekreijveld</authorUrl>
+    <version>1.0.2</version>
+    <description></description>
+    <namespace path="src">Snippets\Component\Snippets</namespace>
+    <install>
+        <sql>
+            <file driver="mysql"
+                charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+    <files folder="components/com_snippets">
+        <folder>forms</folder>
+        <folder>language</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
+    </files>
+    <media destination="com_snippets" folder="media/com_snippets">
+        <folder>css</folder>
+        <folder>js</folder>
+        <filename>joomla.asset.json</filename>
+    </media>
+    <administration>
+        <files folder="administrator/components/com_snippets">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <folder>language</folder>
+            <folder>presets</folder>
+            <folder>services</folder>
+            <folder>sql</folder>
+            <folder>src</folder>
+        </files>
+    </administration>
+    <config>
+        <fields name="params">
+            <fieldset name="component">
+                <field name="save_history" default="0" />
+            </fieldset>
+        </fields>
+    </config>
+</extension>

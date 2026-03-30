@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="library" method="upgrade">
+    <name>Snippets</name>
+    <libraryname>Snippets</libraryname>
+    <creationDate>2026-03-28</creationDate>
+    <author>René Kreijveld</author>
+    <authorEmail>email@renekreijveld.nl</authorEmail>
+    <authorUrl>https://github.com/renekreijveld</authorUrl>
+    <copyright>2026 René Kreijveld Webdevelopment</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>1.0.2</version>
+    <blockChildUninstall>true</blockChildUninstall>
+    <description>Library for the Snippets application.</description>
+    <files folder="Snippets">
+        <folder>Markdown</folder>
+    </files>
+</extension>
