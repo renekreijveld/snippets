@@ -8,7 +8,7 @@
     <authorUrl>https://github.com/renekreijveld</authorUrl>
     <copyright>2026 René Kreijveld Webdevelopment</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <blockChildUninstall>true</blockChildUninstall>
     <description>Library for the Snippets application.</description>
     <files folder="Snippets">

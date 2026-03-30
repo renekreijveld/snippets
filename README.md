@@ -3,7 +3,7 @@
 A Joomla 5+ component for managing and displaying reusable code snippets or content blocks, with frontend submission and category support.
 
 - **Author:** René Kreijveld — [github.com/renekreijveld](https://github.com/renekreijveld)
-- **Version:** 1.0.2
+- **Version:** 1.0.3
 - **License:** GNU GPL v2+
 
 ## Features
