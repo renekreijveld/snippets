@@ -1,6 +1,5 @@
 {
     "require": {
-        "fastvolt/markdown": "^0.2.5",
-        "cebe/markdown": "~1.2.0"
+        "fastvolt/markdown": "^0.2.5"
     }
 }
