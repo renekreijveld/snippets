@@ -11,6 +11,7 @@ name=snippets
 extensionName=${name}
 componentFile=${packageDir}/com_${extensionName}.zip
 libraryFile=${packageDir}/lib_${extensionName}.zip
+finderFile=${packageDir}/plg_finder_${extensionName}.zip
 exclude=".git .gitignore \*update*.xml"
 
 version=$(grep '<version>' ${baseDir}/package.xml | sed -r 's#.*<version>([^<]+)</version>.*#\1#')
@@ -33,6 +34,13 @@ echo "Added ${extensionName}.xml to com_${extensionName}.zip"
 cd ${srcDir}/libraries
 zip -q -r ${libraryFile} lib_${extensionName}.xml Snippets --exclude ${exclude}
 echo "Created lib_${extensionName}.zip"
+
+# Build Finder plugin
+cd ${srcDir}/plugins/finder/snippets
+zip -q -r ${finderFile} \
+  * \
+  --exclude ${exclude}
+echo "Created plg_finder_${extensionName}.zip"
 
 # Create installer package
 cd ${packageDir}

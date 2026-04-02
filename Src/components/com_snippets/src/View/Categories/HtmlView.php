@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version    1.0.3
+ * @version    1.0.4
  * @package    Com_Snippets
  * @author     René Kreijveld <email@renekreijveld.nl>
  * @copyright  2026 René Kreijveld Webdevelopment

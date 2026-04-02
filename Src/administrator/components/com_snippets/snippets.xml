@@ -7,7 +7,7 @@
     <author>René Kreijveld</author>
     <authorEmail>email@renekreijveld.nl</authorEmail>
     <authorUrl>https://github.com/renekreijveld</authorUrl>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <description></description>
     <namespace path="src">Snippets\Component\Snippets</namespace>
     <install>
