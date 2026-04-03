@@ -326,7 +326,7 @@ final class Snippets extends Adapter implements SubscriberInterface
         $context = $event->getContext();
         $table   = $event->getItem();
 
-        if ($context === 'com_snippets.snippet') {
+        if ($context === 'com_snippets.snippet' || $context === 'com_snippets.form') {
             $id = $table->id;
 
             if (!$id) {

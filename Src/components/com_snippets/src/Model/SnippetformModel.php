@@ -12,11 +12,12 @@ namespace Snippets\Component\Snippets\Site\Model;
 defined('_JEXEC') or die;
 
 use \Joomla\CMS\Factory;
-use \Joomla\Utilities\ArrayHelper;
 use \Joomla\CMS\Language\Text;
-use \Joomla\CMS\Table\Table;
 use \Joomla\CMS\MVC\Model\FormModel;
 use \Joomla\CMS\Object\CMSObject;
+use \Joomla\CMS\Table\Table;
+use \Joomla\CMS\Event\AbstractEvent;
+use \Joomla\Utilities\ArrayHelper;
 
 /**
  * Snippets model.
@@ -312,13 +313,41 @@ class SnippetformModel extends FormModel
 		}
 
 		$table = $this->getTable();
+		$isNew = empty($id);
 
-		if (!empty($id)) {
+		if (!$isNew) {
 			$table->load($id);
 		}
 
+		$context    = 'com_snippets.form';
+		$dispatcher = Factory::getApplication()->getDispatcher();
+
 		try {
+			// Dispatch the before save event.
+			$beforeSaveEvent = AbstractEvent::create(
+				'onContentBeforeSave',
+				[
+					'context' => $context,
+					'subject' => $table,
+					'isNew'   => $isNew,
+					'data'    => $data,
+				]
+			);
+			$dispatcher->dispatch('onContentBeforeSave', $beforeSaveEvent);
+
 			if ($table->save($data) === true) {
+				// Dispatch the after save event so the Finder plugin can index the snippet.
+				$afterSaveEvent = AbstractEvent::create(
+					'onContentAfterSave',
+					[
+						'context' => $context,
+						'subject' => $table,
+						'isNew'   => $isNew,
+						'data'    => $data,
+					]
+				);
+				$dispatcher->dispatch('onContentAfterSave', $afterSaveEvent);
+
 				return $table->id;
 			} else {
 				Factory::getApplication()->enqueueMessage($table->getError(), 'error');
@@ -360,10 +389,24 @@ class SnippetformModel extends FormModel
 		}
 
 		$table = $this->getTable();
+		$table->load($id);
 
 		if ($table->delete($id) !== true) {
 			throw new \Exception(Text::_('JERROR_FAILED'), 501);
 		}
+
+		// Dispatch the after delete event so the Finder plugin can remove the snippet from the index.
+		$context    = 'com_snippets.form';
+		$dispatcher = Factory::getApplication()->getDispatcher();
+
+		$afterDeleteEvent = AbstractEvent::create(
+			'onContentAfterDelete',
+			[
+				'context' => $context,
+				'subject' => $table,
+			]
+		);
+		$dispatcher->dispatch('onContentAfterDelete', $afterDeleteEvent);
 
 		return $id;
 
