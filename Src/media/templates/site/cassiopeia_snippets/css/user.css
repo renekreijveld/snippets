@@ -1,0 +1,34 @@
+pre code {
+    border-radius: 10px;
+}
+
+.fv-code-block button.fv-copy-btn {
+    color: #ffffff !important;
+}
+
+.sidebar-left.card {
+    margin-bottom: 0.75em;
+}
+
+.card.articlelist li a,
+.cats li a {
+    text-decoration: none;
+    display: block;
+    padding: 3px 8px 3px 8px;
+    border-radius: var(--border-radius-lg);
+}
+
+.card.articlelist li a.active,
+.cats li.current a {
+    text-decoration: none;
+    background-color: #010156;
+    color: #ffffff;
+    display: block;
+}
+
+.card.articlelist li a:hover,
+.cats li a:hover {
+    text-decoration: none;
+    background-color: var(--gray-400);
+    color: #010156;
+}
