@@ -8,10 +8,11 @@
     <authorUrl>https://github.com/renekreijveld</authorUrl>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <copyright>2026 René Kreijveld Webdevelopment</copyright>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <files>
         <file type="library" id="Snippets">lib_snippets.zip</file>
         <file type="component" id="com_snippets">com_snippets.zip</file>
         <file type="plugin" id="snippets" group="finder">plg_finder_snippets.zip</file>
+        <file type="template" id="cassiopeia_snippets" client="site">tpl_cassiopeia_snippets.zip</file>
     </files>
 </extension>

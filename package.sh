@@ -12,6 +12,7 @@ extensionName=${name}
 componentFile=${packageDir}/com_${extensionName}.zip
 libraryFile=${packageDir}/lib_${extensionName}.zip
 finderFile=${packageDir}/plg_finder_${extensionName}.zip
+templateFile=${packageDir}/tpl_${extensionName}.zip
 exclude=".git .gitignore \*update*.xml"
 
 version=$(grep '<version>' ${baseDir}/package.xml | sed -r 's#.*<version>([^<]+)</version>.*#\1#')
@@ -37,10 +38,26 @@ echo "Created lib_${extensionName}.zip"
 
 # Build Finder plugin
 cd ${srcDir}/plugins/finder/snippets
-zip -q -r ${finderFile} \
-  * \
-  --exclude ${exclude}
+zip -q -r ${finderFile} * --exclude ${exclude}
 echo "Created plg_finder_${extensionName}.zip"
+
+# Build template installer
+temlatepName=cassiopeia_${extensionName}
+templateDir=${srcDir}/templates
+mediaDir=${srcDir}/media/templates/site
+
+[ -f ${templateFile} ] && rm ${templateFile}
+cd ${templateDir}/${temlatepName}
+zip -q -r ${templateFile} * --exclude ${exclude}
+
+# We link the folder to be added to the zip to a folder named 'media',
+# in order to get a 'media' folder containing all media files and subfolder
+# in the root of the zip archive. The linked 'media' folder is removed afterwards.
+cd ${mediaDir}
+ln -sf ${temlatepName} media
+zip -q -r ${templateFile} media --exclude ${exclude}
+echo "Created tpl_${extensionName}.zip"
+rm media
 
 # Create installer package
 cd ${packageDir}
