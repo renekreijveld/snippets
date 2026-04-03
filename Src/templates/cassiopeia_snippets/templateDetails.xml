@@ -2,7 +2,7 @@
 <extension type="template" client="site" method="upgrade">
   <name>Cassiopeia_Snippets</name>
   <version>1.0.6</version>
-  <creationDate>maart 2026</creationDate>
+  <creationDate>2026-04-02</creationDate>
   <author>René Kreijveld</author>
   <authorEmail>email@renekreijveld.nl</authorEmail>
   <copyright>(C) 2026 René Kreijveld Webdevelopment</copyright>

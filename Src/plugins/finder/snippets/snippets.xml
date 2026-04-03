@@ -2,7 +2,7 @@
 <extension type="plugin" group="finder" method="upgrade">
     <name>plg_finder_snippets</name>
     <version>1.0.6</version>
-    <creationDate>2026-04-01</creationDate>
+    <creationDate>2026-04-02</creationDate>
     <author>René Kreijveld</author>
     <authorEmail>email@renekreijveld.nl</authorEmail>
     <authorUrl>https://github.com/renekreijveld</authorUrl>

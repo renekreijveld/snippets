@@ -2,7 +2,7 @@
 <extension type="package" method="upgrade">
     <name>Snippets</name>
     <packagename>snippets</packagename>
-    <creationDate>2026-03-28</creationDate>
+    <creationDate>2026-04-02</creationDate>
     <author>René Kreijveld</author>
     <authorEmail>email@renekreijveld.nl</authorEmail>
     <authorUrl>https://github.com/renekreijveld</authorUrl>
