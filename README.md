@@ -3,7 +3,7 @@
 A Joomla 5+ component for managing and displaying reusable code snippets or content blocks, with frontend submission and category support.
 
 - **Author:** René Kreijveld — [github.com/renekreijveld](https://github.com/renekreijveld)
-- **Version:** 1.0.3
+- **Version:** 1.0.6
 - **License:** GNU GPL v2+
 
 ## Features
@@ -14,6 +14,7 @@ A Joomla 5+ component for managing and displaying reusable code snippets or cont
 - Frontend views: category list, category detail, single snippet, frontend editing of categories and snippets
 - Auto-alias generation from title with Unicode support
 - Smart Search support via bundled `plg_finder_snippets` plugin
+- Cassiopeia childtemplate `tpl_snippets` specific for the Snippets component
 - Check-in/check-out locking for concurrent edit prevention
 - Access control via Joomla ACL (`core.create`, `core.edit`, `core.edit.state`)
 - Multilingual: English (`en-GB`) and Dutch (`nl-NL`)
@@ -37,6 +38,7 @@ The package installs 3 extensions:
 | `com_snippets` | Component | Main snippets component (admin + frontend) |
 | `lib_snippets` | Library | Shared library (Markdown renderer) |
 | `plg_finder_snippets` | Plugin | Finder plugin for Snippets to search snippets with Smart Search |
+| `tpl_snippets` | Template | Cassiopeia childtemplate specific for the Snippets component |
 
 ## Building the Package
 
