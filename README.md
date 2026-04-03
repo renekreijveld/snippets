@@ -13,6 +13,7 @@ A Joomla 5+ component for managing and displaying reusable code snippets or cont
 - Markdown rendering via the bundled `lib_snippets` library
 - Frontend views: category list, category detail, single snippet, frontend editing of categories and snippets
 - Auto-alias generation from title with Unicode support
+- Smart Search support via bundled `plg_finder_snippets` plugin
 - Check-in/check-out locking for concurrent edit prevention
 - Access control via Joomla ACL (`core.create`, `core.edit`, `core.edit.state`)
 - Multilingual: English (`en-GB`) and Dutch (`nl-NL`)
@@ -29,12 +30,13 @@ A Joomla 5+ component for managing and displaying reusable code snippets or cont
 2. In the Joomla administrator, go to **System → Install → Extensions**.
 3. Upload and install the package file.
 
-The package installs two extensions:
+The package installs 3 extensions:
 
 | Extension | Type | Description |
 |-----------|------|-------------|
 | `com_snippets` | Component | Main snippets component (admin + frontend) |
 | `lib_snippets` | Library | Shared library (Markdown renderer) |
+| `plg_finder_snippets` | Plugin | Finder plugin for Snippets to search snippets with Smart Search |
 
 ## Building the Package
 
