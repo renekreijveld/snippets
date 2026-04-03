@@ -41,9 +41,9 @@ $wa->useStyle('com_snippets.snippets');
 <?php endif; ?>
 <div class="row">
     <div class="col-auto snippetCategories">
-        <div class="text-end">
+        <div>
             <?php if ($canCreate) : ?>
-                <a title="<?= Text::_('SNIPPETS_ADD_CATEGORY'); ?>" href="<?= Route::_('index.php?option=com_snippets&task=categoryform.edit&id=0', false, 0); ?>" class="btn btn-secundairy btn-sm hasTooltip"><i class="icon-plus"></i></a>
+                <a title="<?= Text::_('SNIPPETS_ADD_CATEGORY'); ?>" href="<?= Route::_('index.php?option=com_snippets&task=categoryform.edit&id=0', false, 0); ?>" class="btn btn-primary btn-mini hasTooltip"><i class="icon-plus"></i></a>
             <?php endif; ?>
         </div>
         <ul class="nav flex-column">
