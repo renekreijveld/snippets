@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="template" client="site">
+<extension type="template" client="site" method="upgrade">
   <name>Cassiopeia_Snippets</name>
-  <version>1.0</version>
+  <version>1.0.6</version>
   <creationDate>maart 2026</creationDate>
   <author>René Kreijveld</author>
   <authorEmail>email@renekreijveld.nl</authorEmail>
