@@ -22,13 +22,11 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Event\Finder as FinderEvent;
 use Joomla\Component\Finder\Administrator\Indexer\Adapter;
 use Joomla\Component\Finder\Administrator\Indexer\Helper;
-use Joomla\Component\Finder\Administrator\Indexer\Indexer;
 use Joomla\Component\Finder\Administrator\Indexer\Result;
 use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
 use Joomla\Event\SubscriberInterface;
-use Joomla\Registry\Registry;
 
 /**
  * Smart Search plugin for indexing Snippets content.
@@ -107,7 +105,7 @@ final class Snippets extends Adapter implements SubscriberInterface
      *
      * @since   1.0.0
      */
-    public static function getSubscribedEvents(): array
+    public static function getSubscribedEvents() : array
     {
         return array_merge(parent::getSubscribedEvents(), [
             'onFinderAfterDelete'         => 'onFinderAfterDelete',
@@ -125,7 +123,7 @@ final class Snippets extends Adapter implements SubscriberInterface
      *
      * @since   1.0.0
      */
-    protected function setup(): bool
+    protected function setup() : bool
     {
         return true;
     }
@@ -142,7 +140,7 @@ final class Snippets extends Adapter implements SubscriberInterface
      *
      * @since   1.0.0
      */
-    protected function index(Result $item): void
+    protected function index(Result $item) : void
     {
         $item->setLanguage();
 
@@ -288,7 +286,7 @@ final class Snippets extends Adapter implements SubscriberInterface
      *
      * @since   1.0.0
      */
-    public function onFinderAfterSave(FinderEvent\AfterSaveEvent $event): void
+    public function onFinderAfterSave(FinderEvent\AfterSaveEvent $event) : void
     {
         $context = $event->getContext();
         $row     = $event->getItem();
@@ -307,7 +305,7 @@ final class Snippets extends Adapter implements SubscriberInterface
      *
      * @since   1.0.0
      */
-    public function onFinderBeforeSave(FinderEvent\BeforeSaveEvent $event): void
+    public function onFinderBeforeSave(FinderEvent\BeforeSaveEvent $event) : void
     {
         // Nothing to store before save for snippets (no individual access level).
     }
@@ -321,7 +319,7 @@ final class Snippets extends Adapter implements SubscriberInterface
      *
      * @since   1.0.0
      */
-    public function onFinderAfterDelete(FinderEvent\AfterDeleteEvent $event): void
+    public function onFinderAfterDelete(FinderEvent\AfterDeleteEvent $event) : void
     {
         $context = $event->getContext();
         $table   = $event->getItem();
@@ -334,7 +332,8 @@ final class Snippets extends Adapter implements SubscriberInterface
             }
 
             $this->remove($id);
-        } elseif ($context === 'com_finder.index') {
+        }
+        elseif ($context === 'com_finder.index') {
             $this->remove($table->link_id);
         }
     }
@@ -348,7 +347,7 @@ final class Snippets extends Adapter implements SubscriberInterface
      *
      * @since   1.0.0
      */
-    public function onFinderChangeState(FinderEvent\AfterChangeStateEvent $event): void
+    public function onFinderChangeState(FinderEvent\AfterChangeStateEvent $event) : void
     {
         $context = $event->getContext();
         $pks     = $event->getPks();
@@ -377,7 +376,7 @@ final class Snippets extends Adapter implements SubscriberInterface
      *
      * @since   1.0.0
      */
-    public function onFinderCategoryChangeState(FinderEvent\AfterCategoryChangeStateEvent $event): void
+    public function onFinderCategoryChangeState(FinderEvent\AfterCategoryChangeStateEvent $event) : void
     {
         if ($event->getExtension() !== 'com_snippets') {
             return;
@@ -410,7 +409,7 @@ final class Snippets extends Adapter implements SubscriberInterface
      *
      * @since   1.0.0
      */
-    private function getCategoryNames(array $categoryIds): array
+    private function getCategoryNames(array $categoryIds) : array
     {
         if ($categoryIds === []) {
             return [];
@@ -424,4 +423,5 @@ final class Snippets extends Adapter implements SubscriberInterface
 
         return $db->setQuery($query)->loadColumn();
     }
+
 }

@@ -9,10 +9,12 @@
  */
 
 namespace Snippets\Component\Snippets\Site\Service;
+
 // No direct access
 defined('_JEXEC') or die;
 
 use \Joomla\CMS\Categories\Categories;
+
 /**
  * Content Component Category Tree
  *
@@ -30,8 +32,9 @@ class Category extends Categories
 	 */
 	public function __construct($options = array())
 	{
-		$options['table'] = '#__snippets';
+		$options['table']     = '#__snippets';
 		$options['extension'] = 'com_snippets.snippets';
 		parent::__construct($options);
 	}
+
 }

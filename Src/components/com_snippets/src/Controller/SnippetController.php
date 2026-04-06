@@ -36,7 +36,7 @@ class SnippetController extends BaseController
 	{
 		// Get the previous edit id (if any) and the current edit id.
 		$previousId = (int) $this->app->getUserState('com_snippets.edit.snippet.id');
-		$editId = $this->input->getInt('id', 0);
+		$editId     = $this->input->getInt('id', 0);
 
 		// Set the user id for the user to edit in the session.
 		$this->app->setUserState('com_snippets.edit.snippet.id', $editId);
@@ -75,7 +75,7 @@ class SnippetController extends BaseController
 			$model = $this->getModel('Snippet', 'Site');
 
 			// Get the user data.
-			$id = $this->input->getInt('id');
+			$id    = $this->input->getInt('id');
 			$state = $this->input->getInt('state');
 
 			// Attempt to save the data.
@@ -100,10 +100,12 @@ class SnippetController extends BaseController
 			if (!$item) {
 				// If there isn't any menu item active, redirect to list view
 				$this->setRedirect(Route::_('index.php?option=com_snippets&view=snippets', false));
-			} else {
+			}
+			else {
 				$this->setRedirect(Route::_('index.php?Itemid=' . $item->id, false));
 			}
-		} else {
+		}
+		else {
 			throw new \Exception(500);
 		}
 	}
@@ -120,9 +122,9 @@ class SnippetController extends BaseController
 		// Check for request forgeries.
 		$this->checkToken('GET');
 
-		$id = $this->input->getInt('id', 0);
+		$id    = $this->input->getInt('id', 0);
 		$model = $this->getModel();
-		$item = $model->getItem($id);
+		$item  = $model->getItem($id);
 
 		// Checking if the user can remove object
 		$user = $this->app->getIdentity();
@@ -136,13 +138,15 @@ class SnippetController extends BaseController
 				$message = Text::sprintf('JLIB_APPLICATION_ERROR_CHECKIN_FAILED', $model->getError());
 				$this->setRedirect(Route::_('index.php?option=com_snippets&view=snippet' . '&id=' . $id, false), $message, 'error');
 				return false;
-			} else {
+			}
+			else {
 				// Checkin succeeded.
 				$message = Text::_('SNIPPETS_CHECKEDIN_SUCCESSFULLY');
 				$this->setRedirect(Route::_('index.php?option=com_snippets&view=snippet' . '&id=' . $id, false), $message);
 				return true;
 			}
-		} else {
+		}
+		else {
 			throw new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 	}
@@ -173,7 +177,8 @@ class SnippetController extends BaseController
 			// Check for errors.
 			if ($return === false) {
 				$this->setMessage(Text::sprintf('Delete failed', $model->getError()), 'warning');
-			} else {
+			}
+			else {
 				// Check in the profile.
 				if ($return) {
 					$model->checkin($return);
@@ -189,8 +194,10 @@ class SnippetController extends BaseController
 			$menu = Factory::getApplication()->getMenu();
 			$item = $menu->getActive();
 			$this->setRedirect(Route::_($item->link, false));
-		} else {
+		}
+		else {
 			throw new \Exception(500);
 		}
 	}
+
 }

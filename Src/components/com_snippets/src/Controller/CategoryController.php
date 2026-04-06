@@ -32,11 +32,11 @@ class CategoryController extends BaseController
 	 *
 	 * @throws  \Exception
 	 */
-	public function edit(): void
+	public function edit() : void
 	{
 		// Get the previous edit id (if any) and the current edit id.
 		$previousId = (int) $this->app->getUserState('com_snippets.edit.category.id');
-		$editId = $this->input->getInt('id', 0);
+		$editId     = $this->input->getInt('id', 0);
 
 		// Set the user id for the user to edit in the session.
 		$this->app->setUserState('com_snippets.edit.category.id', $editId);
@@ -67,14 +67,14 @@ class CategoryController extends BaseController
 	 *
 	 * @since   1.0.0
 	 */
-	public function publish(): void
+	public function publish() : void
 	{
 		$user = $this->app->getIdentity();
 
 		if ($user->authorise('core.edit', 'com_snippets') || $user->authorise('core.edit.state', 'com_snippets')) {
 			$model = $this->getModel('Category', 'Site');
 
-			$id = $this->input->getInt('id');
+			$id    = $this->input->getInt('id');
 			$state = $this->input->getInt('state');
 
 			$return = $model->publish($id, $state);
@@ -96,10 +96,12 @@ class CategoryController extends BaseController
 
 			if (!$item) {
 				$this->setRedirect(Route::_('index.php?option=com_snippets&view=categories', false));
-			} else {
+			}
+			else {
 				$this->setRedirect(Route::_('index.php?Itemid=' . $item->id, false));
 			}
-		} else {
+		}
+		else {
 			throw new \Exception(500);
 		}
 	}
@@ -111,14 +113,14 @@ class CategoryController extends BaseController
 	 *
 	 * @since   1.0.0
 	 */
-	public function checkin(): bool
+	public function checkin() : bool
 	{
 		// Check for request forgeries.
 		$this->checkToken('GET');
 
-		$id = $this->input->getInt('id', 0);
+		$id    = $this->input->getInt('id', 0);
 		$model = $this->getModel();
-		$item = $model->getItem($id);
+		$item  = $model->getItem($id);
 
 		$user = $this->app->getIdentity();
 
@@ -130,13 +132,15 @@ class CategoryController extends BaseController
 				$this->setRedirect(Route::_('index.php?option=com_snippets&view=category' . '&id=' . $id, false), $message, 'error');
 
 				return false;
-			} else {
+			}
+			else {
 				$message = Text::_('SNIPPETS_CHECKEDIN_SUCCESSFULLY');
 				$this->setRedirect(Route::_('index.php?option=com_snippets&view=category' . '&id=' . $id, false), $message);
 
 				return true;
 			}
-		} else {
+		}
+		else {
 			throw new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 	}
@@ -150,7 +154,7 @@ class CategoryController extends BaseController
 	 *
 	 * @since   1.0.0
 	 */
-	public function remove(): void
+	public function remove() : void
 	{
 		$user = $this->app->getIdentity();
 
@@ -163,7 +167,8 @@ class CategoryController extends BaseController
 
 			if ($return === false) {
 				$this->setMessage(Text::sprintf('Delete failed', $model->getError()), 'warning');
-			} else {
+			}
+			else {
 				if ($return) {
 					$model->checkin($return);
 				}
@@ -178,8 +183,10 @@ class CategoryController extends BaseController
 			$menu = Factory::getApplication()->getMenu();
 			$item = $menu->getActive();
 			$this->setRedirect(Route::_($item->link, false));
-		} else {
+		}
+		else {
 			throw new \Exception(500);
 		}
 	}
+
 }

@@ -55,8 +55,8 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * @var CategoriesModel
 	 */
-	public $categoriesModel;
-	public array $categories = [];
+	public       $categoriesModel;
+	public array $categories      = [];
 
 	/**
 	 * Display the view.
@@ -69,20 +69,20 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @since   1.0.0
 	 */
-	public function display($tpl = null): void
+	public function display($tpl = null) : void
 	{
-		$app = Factory::getApplication();
+		$app  = Factory::getApplication();
 		$user = $app->getIdentity();
 
-		$this->categoryModel = $this->getModel('Category');
+		$this->model           = $this->getModel('Category');
 		$this->categoriesModel = $this->getModel('Categories');
-		$this->item = $this->categoryModel->getItem();
-		$this->categories = $this->categoriesModel->getItems();
-		$this->state = $this->get('State');
-		$this->params = $app->getParams('com_snippets');
+		$this->item            = $this->model->getItem();
+		$this->categories      = $this->categoriesModel->getItems();
+		$this->state           = $this->model->getState();
+		$this->params          = $app->getParams('com_snippets');
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
+		if (count($errors = $this->model->getErrors())) {
 			throw new \Exception(implode("\n", $errors));
 		}
 
@@ -108,9 +108,9 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @since   1.0.0
 	 */
-	protected function _prepareDocument(): void
+	protected function _prepareDocument() : void
 	{
-		$app = Factory::getApplication();
+		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
 		$title = null;
 
@@ -118,7 +118,8 @@ class HtmlView extends BaseHtmlView
 
 		if ($menu) {
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
-		} else {
+		}
+		else {
 			$this->params->def('page_heading', Text::_('SNIPPETS_CATEGORY_PAGE_TITLE'));
 		}
 
@@ -126,9 +127,11 @@ class HtmlView extends BaseHtmlView
 
 		if (empty($title)) {
 			$title = $app->get('sitename');
-		} elseif ($app->get('sitename_pagetitles', 0) == 1) {
+		}
+		elseif ($app->get('sitename_pagetitles', 0) == 1) {
 			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
-		} elseif ($app->get('sitename_pagetitles', 0) == 2) {
+		}
+		elseif ($app->get('sitename_pagetitles', 0) == 2) {
 			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
@@ -146,4 +149,5 @@ class HtmlView extends BaseHtmlView
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
 	}
+
 }

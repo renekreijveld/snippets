@@ -28,7 +28,7 @@ class SnippetsHelper
 	 */
 	public static function getCategoryNameByCategoryId($category_id)
 	{
-		$db = Factory::getContainer()->get('DatabaseDriver');
+		$db    = Factory::getContainer()->get('DatabaseDriver');
 		$query = $db->getQuery(true);
 
 		$query
@@ -53,7 +53,7 @@ class SnippetsHelper
 	 */
 	public static function getFiles($pk, $table, $field)
 	{
-		$db = Factory::getContainer()->get('DatabaseDriver');
+		$db    = Factory::getContainer()->get('DatabaseDriver');
 		$query = $db->getQuery(true);
 
 		$query
@@ -76,7 +76,7 @@ class SnippetsHelper
 	public static function canUserEdit($item)
 	{
 		$permission = false;
-		$user = Factory::getApplication()->getIdentity();
+		$user       = Factory::getApplication()->getIdentity();
 
 		if ($user->authorise('core.edit', 'com_snippets') || (isset($item->created_by) && $user->authorise('core.edit.own', 'com_snippets') && $item->created_by == $user->id) || $user->authorise('core.create', 'com_snippets')) {
 			$permission = true;
@@ -84,4 +84,5 @@ class SnippetsHelper
 
 		return $permission;
 	}
+
 }

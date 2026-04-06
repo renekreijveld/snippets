@@ -54,8 +54,8 @@ class Router extends RouterView
 
     public function __construct(SiteApplication $app, AbstractMenu $menu, CategoryFactoryInterface $categoryFactory, DatabaseInterface $db)
     {
-        $params = ComponentHelper::getParams('com_snippets');
-        $this->noIDs = (bool) $params->get('sef_ids');
+        $params                = ComponentHelper::getParams('com_snippets');
+        $this->noIDs           = (bool) $params->get('sef_ids');
         $this->categoryFactory = $categoryFactory;
 
         $snippets = new RouterViewConfiguration('snippets');
@@ -97,7 +97,7 @@ class Router extends RouterView
         $category = $this->getCategories(["access" => true])->get($id);
 
         if ($category) {
-            $path = array_reverse($category->getPath(), true);
+            $path    = array_reverse($category->getPath(), true);
             $path[0] = '1:root';
 
             if ($this->noIDs) {
@@ -122,7 +122,7 @@ class Router extends RouterView
     public function getSnippetSegment($id, $query)
     {
         if (!strpos($id, ':')) {
-            $db = Factory::getContainer()->get('DatabaseDriver');
+            $db      = Factory::getContainer()->get('DatabaseDriver');
             $dbquery = $db->getQuery(true);
             $dbquery->select($dbquery->qn('alias'))
                 ->from($dbquery->qn('#__snippets'))
@@ -171,7 +171,8 @@ class Router extends RouterView
                         if ($child->alias == $segment) {
                             return $child->id;
                         }
-                    } else {
+                    }
+                    else {
                         if ($child->id == (int) $segment) {
                             return $child->id;
                         }
@@ -193,9 +194,9 @@ class Router extends RouterView
     public function getSnippetId($segment, $query)
     {
         if ($this->noIDs) {
-            $db = Factory::getContainer()->get('DatabaseDriver');
+            $db      = Factory::getContainer()->get('DatabaseDriver');
             $dbquery = $db->getQuery(true);
-            $catId = (int) ($query['catid'] ?? $query['id'] ?? 0);
+            $catId   = (int) ($query['catid'] ?? $query['id'] ?? 0);
             $dbquery->select($dbquery->qn('id'))
                 ->from($dbquery->qn('#__snippets'))
                 ->where($dbquery->qn('alias') . ' = :alias')
@@ -245,7 +246,7 @@ class Router extends RouterView
     public function getCategorySegment($id, $query)
     {
         if (!strpos($id, ':')) {
-            $db = Factory::getContainer()->get('DatabaseDriver');
+            $db      = Factory::getContainer()->get('DatabaseDriver');
             $dbquery = $db->getQuery(true);
             $dbquery->select($dbquery->qn('alias'))
                 ->from($dbquery->qn('#__categories'))
@@ -301,7 +302,7 @@ class Router extends RouterView
     public function getCategoryId($segment, $query)
     {
         if ($this->noIDs) {
-            $db = Factory::getContainer()->get('DatabaseDriver');
+            $db      = Factory::getContainer()->get('DatabaseDriver');
             $dbquery = $db->getQuery(true);
             $dbquery->select($dbquery->qn('id'))
                 ->from($dbquery->qn('#__categories'))
@@ -337,7 +338,7 @@ class Router extends RouterView
      *
      * @since   1.0.0
      */
-    private function getCategories(array $options = []): CategoryInterface
+    private function getCategories(array $options = []) : CategoryInterface
     {
         $key = serialize($options);
 
@@ -347,4 +348,5 @@ class Router extends RouterView
 
         return $this->categoryCache[$key];
     }
+
 }

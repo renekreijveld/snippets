@@ -11,6 +11,7 @@
 namespace Snippets\Component\Snippets\Site\View\Snippetform;
 
 use function is_null;
+
 // No direct access
 defined('_JEXEC') or die;
 
@@ -46,17 +47,16 @@ class HtmlView extends BaseHtmlView
      */
     public function display($tpl = null)
     {
-        $app = Factory::getApplication();
-        $user = $app->getIdentity();
-        $input = Factory::getApplication()->input;
+        $app   = Factory::getApplication();
+        $input = $app->input;
 
-        $this->catid = $input->getInt('catid', 0, 'integer');
-        $this->state = $this->get('State');
-        $this->item = $this->get('Item');
-        $this->params = $app->getParams('com_snippets');
+        $this->catid   = $input->getInt('catid', 0, 'integer');
+        $this->state   = $this->get('State');
+        $this->item    = $this->get('Item');
+        $this->params  = $app->getParams('com_snippets');
         $this->canSave = $this->get('CanSave');
-        $this->form = $this->get('Form');
-        $this->catid = ($this->item->id !== null) ? $this->item->cat_id : $input->getInt('catid', 0, 'integer');
+        $this->form    = $this->get('Form');
+        $this->catid   = ($this->item->id !== null) ? $this->item->cat_id : $input->getInt('catid', 0, 'integer');
 
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
@@ -77,7 +77,7 @@ class HtmlView extends BaseHtmlView
      */
     protected function _prepareDocument()
     {
-        $app = Factory::getApplication();
+        $app   = Factory::getApplication();
         $menus = $app->getMenu();
         $title = null;
 
@@ -87,7 +87,8 @@ class HtmlView extends BaseHtmlView
 
         if ($menu) {
             $this->params->def('page_heading', $this->params->get('page_title', $menu->title));
-        } else {
+        }
+        else {
             $this->params->def('page_heading', Text::_('SNIPPETS_DEFAULT_PAGE_TITLE'));
         }
 
@@ -95,9 +96,11 @@ class HtmlView extends BaseHtmlView
 
         if (empty($title)) {
             $title = $app->get('sitename');
-        } elseif ($app->get('sitename_pagetitles', 0) == 1) {
+        }
+        elseif ($app->get('sitename_pagetitles', 0) == 1) {
             $title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
-        } elseif ($app->get('sitename_pagetitles', 0) == 2) {
+        }
+        elseif ($app->get('sitename_pagetitles', 0) == 2) {
             $title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
         }
 
@@ -115,4 +118,5 @@ class HtmlView extends BaseHtmlView
             $this->document->setMetadata('robots', $this->params->get('robots'));
         }
     }
+
 }

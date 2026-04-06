@@ -37,8 +37,8 @@ class SnippetformController extends FormController
 	{
 		// Get the previous edit id (if any) and the current edit id.
 		$previousId = (int) $this->app->getUserState('com_snippets.edit.snippet.id');
-		$editId = $this->input->getInt('id', 0);
-		$catId = $this->input->getInt('catid', 0);
+		$editId     = $this->input->getInt('id', 0);
+		$catId      = $this->input->getInt('catid', 0);
 
 		// Set the user id for the user to edit in the session.
 		$this->app->setUserState('com_snippets.edit.snippet.id', $editId);
@@ -107,7 +107,8 @@ class SnippetformController extends FormController
 			for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++) {
 				if ($errors[$i] instanceof \Exception) {
 					$this->app->enqueueMessage($errors[$i]->getMessage(), 'warning');
-				} else {
+				}
+				else {
 					$this->app->enqueueMessage($errors[$i], 'warning');
 				}
 			}
@@ -178,7 +179,7 @@ class SnippetformController extends FormController
 
 		// Get the current edit id.
 		$editId = (int) $this->app->getUserState('com_snippets.edit.snippet.id');
-		$catId = Factory::getApplication()->input->getInt('catid', 0, 'integer');
+		$catId  = Factory::getApplication()->input->getInt('catid', 0, 'integer');
 
 		// Get the model.
 		$model = $this->getModel('Snippetform', 'Site');
@@ -203,7 +204,7 @@ class SnippetformController extends FormController
 	public function remove()
 	{
 		$model = $this->getModel('Snippetform', 'Site');
-		$pk = $this->input->getInt('id');
+		$pk    = $this->input->getInt('id');
 
 		// Attempt to save the data
 		try {
@@ -214,20 +215,21 @@ class SnippetformController extends FormController
 
 			$menu = $this->app->getMenu();
 			$item = $menu->getActive();
-			$url = (empty($item->link) ? 'index.php?option=com_snippets&view=snippets' : $item->link);
+			$url  = (empty($item->link) ? 'index.php?option=com_snippets&view=snippets' : $item->link);
 
 			if ($return) {
 				$model->delete($pk);
 				$this->setMessage(Text::_('SNIPPETS_ITEM_DELETED_SUCCESSFULLY'));
-			} else {
+			}
+			else {
 				$this->setMessage(Text::_('SNIPPETS_ITEM_DELETED_UNSUCCESSFULLY'), 'warning');
 			}
-
 
 			$this->setRedirect(Route::_($url, false));
 			// Flush the data from the session.
 			$this->app->setUserState('com_snippets.edit.snippet.data', null);
-		} catch (\Exception $e) {
+		}
+		catch (\Exception $e) {
 			$errorType = ($e->getCode() == '404') ? 'error' : 'warning';
 			$this->setMessage($e->getMessage(), $errorType);
 			$this->setRedirect('index.php?option=com_snippets&view=snippets');
@@ -248,4 +250,5 @@ class SnippetformController extends FormController
 	protected function postSaveHook(BaseDatabaseModel $model, $validData = array())
 	{
 	}
+
 }

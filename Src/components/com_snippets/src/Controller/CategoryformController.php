@@ -36,11 +36,11 @@ class CategoryformController extends FormController
 	 *
 	 * @throws  \Exception
 	 */
-	public function edit($key = null, $urlVar = null): void
+	public function edit($key = null, $urlVar = null) : void
 	{
 		// Get the previous edit id (if any) and the current edit id.
 		$previousId = (int) $this->app->getUserState('com_snippets.edit.category.id');
-		$editId = $this->input->getInt('id', 0);
+		$editId     = $this->input->getInt('id', 0);
 
 		// Set the user id for the user to edit in the session.
 		$this->app->setUserState('com_snippets.edit.category.id', $editId);
@@ -74,7 +74,7 @@ class CategoryformController extends FormController
 	 *
 	 * @since   1.0.0
 	 */
-	public function save($key = null, $urlVar = null): void
+	public function save($key = null, $urlVar = null) : void
 	{
 		// Check for request forgeries.
 		$this->checkToken();
@@ -113,7 +113,8 @@ class CategoryformController extends FormController
 			for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++) {
 				if ($errors[$i] instanceof \Exception) {
 					$this->app->enqueueMessage($errors[$i]->getMessage(), 'warning');
-				} else {
+				}
+				else {
 					$this->app->enqueueMessage($errors[$i], 'warning');
 				}
 			}
@@ -160,7 +161,7 @@ class CategoryformController extends FormController
 
 		$menu = Factory::getApplication()->getMenu();
 		$item = $menu->getActive();
-		$url = (empty($item->link) ? 'index.php?option=com_snippets&view=categories' : $item->link);
+		$url  = (empty($item->link) ? 'index.php?option=com_snippets&view=categories' : $item->link);
 		$this->setRedirect(Route::_($url, false));
 
 		// Flush the data from the session.
@@ -181,7 +182,7 @@ class CategoryformController extends FormController
 	 *
 	 * @since   1.0.0
 	 */
-	public function cancel($key = null): void
+	public function cancel($key = null) : void
 	{
 		// Get the current edit id.
 		$editId = (int) $this->app->getUserState('com_snippets.edit.category.id');
@@ -206,10 +207,10 @@ class CategoryformController extends FormController
 	 *
 	 * @since   1.0.0
 	 */
-	public function remove(): void
+	public function remove() : void
 	{
 		$model = $this->getModel('Categoryform', 'Site');
-		$pk = $this->input->getInt('id');
+		$pk    = $this->input->getInt('id');
 
 		try {
 			// Check in before delete.
@@ -219,19 +220,21 @@ class CategoryformController extends FormController
 
 			$menu = $this->app->getMenu();
 			$item = $menu->getActive();
-			$url = (empty($item->link) ? 'index.php?option=com_snippets&view=categories' : $item->link);
+			$url  = (empty($item->link) ? 'index.php?option=com_snippets&view=categories' : $item->link);
 
 			if ($return) {
 				$model->delete($pk);
 				$this->setMessage(Text::_('SNIPPETS_CATEGORY_DELETED_SUCCESSFULLY'));
-			} else {
+			}
+			else {
 				$this->setMessage(Text::_('SNIPPETS_CATEGORY_DELETED_UNSUCCESSFULLY'), 'warning');
 			}
 
 			$this->setRedirect(Route::_($url, false));
 			// Flush the data from the session.
 			$this->app->setUserState('com_snippets.edit.category.data', null);
-		} catch (\Exception $e) {
+		}
+		catch (\Exception $e) {
 			$errorType = ($e->getCode() == '404') ? 'error' : 'warning';
 			$this->setMessage($e->getMessage(), $errorType);
 			$this->setRedirect('index.php?option=com_snippets&view=categories');
@@ -249,7 +252,8 @@ class CategoryformController extends FormController
 	 *
 	 * @since   1.0.0
 	 */
-	protected function postSaveHook(BaseDatabaseModel $model, $validData = array()): void
+	protected function postSaveHook(BaseDatabaseModel $model, $validData = array()) : void
 	{
 	}
+
 }

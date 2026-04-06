@@ -45,14 +45,15 @@ class CategoryformModel extends FormModel
 	 *
 	 * @throws  \Exception
 	 */
-	protected function populateState(): void
+	protected function populateState() : void
 	{
 		$app = Factory::getApplication('com_snippets');
 
 		// Load state from the request userState on edit or from the passed variable on default.
 		if (Factory::getApplication()->input->get('layout') == 'edit') {
 			$id = Factory::getApplication()->getUserState('com_snippets.edit.category.id');
-		} else {
+		}
+		else {
 			$id = Factory::getApplication()->input->get('id');
 			Factory::getApplication()->setUserState('com_snippets.edit.category.id', $id);
 		}
@@ -60,7 +61,7 @@ class CategoryformModel extends FormModel
 		$this->setState('category.id', $id);
 
 		// Load the parameters.
-		$params = $app->getParams();
+		$params       = $app->getParams();
 		$params_array = $params->toArray();
 
 		if (isset($params_array['item_id'])) {
@@ -81,7 +82,7 @@ class CategoryformModel extends FormModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getItem($id = null): object|bool
+	public function getItem($id = null) : object|bool
 	{
 		if ($this->item === null) {
 			$this->item = false;
@@ -91,7 +92,7 @@ class CategoryformModel extends FormModel
 			}
 
 			// Get a level row instance.
-			$table = $this->getTable();
+			$table      = $this->getTable();
 			$properties = $table->getProperties();
 			$this->item = ArrayHelper::toObject($properties, CMSObject::class);
 
@@ -102,7 +103,7 @@ class CategoryformModel extends FormModel
 				}
 
 				$user = Factory::getApplication()->getIdentity();
-				$id = $table->id;
+				$id   = $table->id;
 
 				$canEdit = $user->authorise('core.edit', 'com_snippets') || $user->authorise('core.create', 'com_snippets');
 
@@ -141,7 +142,7 @@ class CategoryformModel extends FormModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getTable($type = 'Category', $prefix = '\\Joomla\\CMS\\Table\\', $config = array()): Table|bool
+	public function getTable($type = 'Category', $prefix = '\\Joomla\\CMS\\Table\\', $config = array()) : Table|bool
 	{
 		return Table::getInstance($type, $prefix, $config);
 	}
@@ -158,13 +159,13 @@ class CategoryformModel extends FormModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getForm($data = array(), $loadData = true): \Joomla\CMS\Form\Form|false
+	public function getForm($data = array(), $loadData = true) : \Joomla\CMS\Form\Form|false
 	{
 		$form = $this->loadForm(
 			'com_snippets.category',
 			'categoryform',
 			array(
-				'control' => 'jform',
+				'control'   => 'jform',
 				'load_data' => $loadData,
 			)
 		);
@@ -183,7 +184,7 @@ class CategoryformModel extends FormModel
 	 *
 	 * @since   1.0.0
 	 */
-	protected function loadFormData(): mixed
+	protected function loadFormData() : mixed
 	{
 		$data = Factory::getApplication()->getUserState('com_snippets.edit.category.data', array());
 
@@ -209,15 +210,16 @@ class CategoryformModel extends FormModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function save($data): int|false
+	public function save($data) : int|false
 	{
-		$id = (!empty($data['id'])) ? $data['id'] : (int) $this->getState('category.id');
+		$id   = (!empty($data['id'])) ? $data['id'] : (int) $this->getState('category.id');
 		$user = Factory::getApplication()->getIdentity();
 
 		if ($id) {
 			// Check the user can edit this item.
 			$authorised = $user->authorise('core.edit', 'com_snippets') || $user->authorise('core.edit.own', 'com_snippets');
-		} else {
+		}
+		else {
 			// Check the user can create new items in this section.
 			$authorised = $user->authorise('core.create', 'com_snippets');
 		}
@@ -251,12 +253,14 @@ class CategoryformModel extends FormModel
 		try {
 			if ($table->save($data) === true) {
 				return $table->id;
-			} else {
+			}
+			else {
 				Factory::getApplication()->enqueueMessage($table->getError(), 'error');
 
 				return false;
 			}
-		} catch (\Exception $e) {
+		}
+		catch (\Exception $e) {
 			Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 
 			return false;
@@ -274,7 +278,7 @@ class CategoryformModel extends FormModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function delete(int $id): int
+	public function delete(int $id) : int
 	{
 		$user = Factory::getApplication()->getIdentity();
 
@@ -308,7 +312,7 @@ class CategoryformModel extends FormModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function checkin($id = null): bool
+	public function checkin($id = null) : bool
 	{
 		$id = (!empty($id)) ? $id : (int) $this->getState('category.id');
 
@@ -334,13 +338,13 @@ class CategoryformModel extends FormModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function checkout($id = null): bool
+	public function checkout($id = null) : bool
 	{
 		$id = (!empty($id)) ? $id : (int) $this->getState('category.id');
 
 		if ($id) {
 			$table = $this->getTable();
-			$user = Factory::getApplication()->getIdentity();
+			$user  = Factory::getApplication()->getIdentity();
 
 			if (method_exists($table, 'checkout')) {
 				if (!$table->checkout($user->get('id'), $id)) {
@@ -359,10 +363,11 @@ class CategoryformModel extends FormModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getCanSave(): bool
+	public function getCanSave() : bool
 	{
 		$table = $this->getTable();
 
 		return $table !== false;
 	}
+
 }

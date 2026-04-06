@@ -51,7 +51,8 @@ $canEdit = SnippetsHelper::canUserEdit($this->item, $user);
             <h1><?= Text::_('SNIPPETS_ADD_ITEM_TITLE'); ?></h1>
         <?php endif; ?>
 
-        <form id="form-snippet" action="<?= Route::_('index.php?option=com_snippets&task=snippetform.save'); ?>" method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
+        <form id="form-snippet" action="<?= Route::_('index.php?option=com_snippets&task=snippetform.save'); ?>"
+            method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
             <input type="hidden" name="jform[id]" value="<?= isset($this->item->id) ? $this->item->id : ''; ?>" />
             <input type="hidden" name="jform[state]" value="<?= isset($this->item->state) ? $this->item->state : ''; ?>" />
             <?= $this->form->getInput('created_by'); ?>
@@ -86,7 +87,9 @@ $canEdit = SnippetsHelper::canUserEdit($this->item, $user);
                             <span class="fas fa-check me-1" aria-hidden="true"></span><?= Text::_('SNIPPETS_SAVE'); ?>
                         </button>
                     <?php endif; ?>
-                    <a class="btn btn-danger btn-sm" href="<?= Route::_('index.php?option=com_snippets&task=snippetform.cancel&catid=' . $this->catid); ?>" title="<?= Text::_('JCANCEL'); ?>">
+                    <a class="btn btn-danger btn-sm"
+                        href="<?= Route::_('index.php?option=com_snippets&task=snippetform.cancel&catid=' . $this->catid); ?>"
+                        title="<?= Text::_('JCANCEL'); ?>">
                         <span class="fas fa-times me-1" aria-hidden="true"></span> <?= Text::_('JCANCEL'); ?>
                     </a>
                 </div>

@@ -48,9 +48,9 @@ class CategoryModel extends ItemModel
 	 *
 	 * @throws  \Exception
 	 */
-	protected function populateState(): void
+	protected function populateState() : void
 	{
-		$app = Factory::getApplication('com_snippets');
+		$app  = Factory::getApplication('com_snippets');
 		$user = $app->getIdentity();
 
 		// Check published state.
@@ -61,7 +61,8 @@ class CategoryModel extends ItemModel
 		// Load state from the request userState on edit or from the passed variable on default.
 		if (Factory::getApplication()->input->get('layout') == 'edit') {
 			$id = Factory::getApplication()->getUserState('com_snippets.edit.category.id');
-		} else {
+		}
+		else {
 			$id = Factory::getApplication()->input->get('id');
 			Factory::getApplication()->setUserState('com_snippets.edit.category.id', $id);
 		}
@@ -69,7 +70,7 @@ class CategoryModel extends ItemModel
 		$this->setState('category.id', $id);
 
 		// Load the parameters.
-		$params = $app->getParams();
+		$params       = $app->getParams();
 		$params_array = $params->toArray();
 
 		if (isset($params_array['item_id'])) {
@@ -90,7 +91,7 @@ class CategoryModel extends ItemModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getItem($id = null): mixed
+	public function getItem($id = null) : mixed
 	{
 		if ($this->_item === null) {
 			$this->_item = false;
@@ -117,7 +118,7 @@ class CategoryModel extends ItemModel
 				}
 
 				// Convert the Table to a clean CMSObject.
-				$properties = $table->getProperties(1);
+				$properties  = $table->getProperties(1);
 				$this->_item = ArrayHelper::toObject($properties, CMSObject::class);
 			}
 
@@ -127,16 +128,16 @@ class CategoryModel extends ItemModel
 		}
 
 		// Resolve created_user_id to a username.
-		$container = Factory::getContainer();
+		$container   = Factory::getContainer();
 		$userFactory = $container->get(UserFactoryInterface::class);
 
 		if (isset($this->_item->created_user_id) && $this->_item->created_user_id) {
-			$createdUser = $userFactory->loadUserById($this->_item->created_user_id);
+			$createdUser                    = $userFactory->loadUserById($this->_item->created_user_id);
 			$this->_item->created_user_name = $createdUser->name;
 		}
 
 		if (isset($this->_item->modified_user_id) && $this->_item->modified_user_id) {
-			$modifiedUser = $userFactory->loadUserById($this->_item->modified_user_id);
+			$modifiedUser                    = $userFactory->loadUserById($this->_item->modified_user_id);
 			$this->_item->modified_user_name = $modifiedUser->name;
 		}
 
@@ -155,9 +156,9 @@ class CategoryModel extends ItemModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getSnippetsForCategory(int $categoryId): array
+	public function getSnippetsForCategory(int $categoryId) : array
 	{
-		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		$db    = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 
 		$query->select($db->quoteName(['id', 'title', 'alias', 'state', 'cat_id']))
@@ -183,7 +184,7 @@ class CategoryModel extends ItemModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getTable($type = 'Category', $prefix = '\\Joomla\\CMS\\Table\\', $config = array()): Table|bool
+	public function getTable($type = 'Category', $prefix = '\\Joomla\\CMS\\Table\\', $config = array()) : Table|bool
 	{
 		return Table::getInstance($type, $prefix, $config);
 	}
@@ -197,7 +198,7 @@ class CategoryModel extends ItemModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function checkin($id = null): bool
+	public function checkin($id = null) : bool
 	{
 		$id = (!empty($id)) ? $id : (int) $this->getState('category.id');
 
@@ -223,13 +224,13 @@ class CategoryModel extends ItemModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function checkout($id = null): bool
+	public function checkout($id = null) : bool
 	{
 		$id = (!empty($id)) ? $id : (int) $this->getState('category.id');
 
 		if ($id) {
 			$table = $this->getTable();
-			$user = Factory::getApplication()->getIdentity();
+			$user  = Factory::getApplication()->getIdentity();
 
 			if (method_exists($table, 'checkout')) {
 				if (!$table->checkout($user->get('id'), $id)) {
@@ -251,7 +252,7 @@ class CategoryModel extends ItemModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function publish(int $id, int $state): bool
+	public function publish(int $id, int $state) : bool
 	{
 		$table = $this->getTable();
 		$table->load($id);
@@ -269,10 +270,11 @@ class CategoryModel extends ItemModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function delete(int $id): bool
+	public function delete(int $id) : bool
 	{
 		$table = $this->getTable();
 
 		return $table->delete($id);
 	}
+
 }

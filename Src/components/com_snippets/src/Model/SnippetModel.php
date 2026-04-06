@@ -8,6 +8,7 @@
  */
 
 namespace Snippets\Component\Snippets\Site\Model;
+
 // No direct access.
 defined('_JEXEC') or die;
 
@@ -42,7 +43,7 @@ class SnippetModel extends ItemModel
 	 */
 	protected function populateState()
 	{
-		$app = Factory::getApplication('com_snippets');
+		$app  = Factory::getApplication('com_snippets');
 		$user = $app->getIdentity();
 
 		// Check published state
@@ -54,7 +55,8 @@ class SnippetModel extends ItemModel
 		// Load state from the request userState on edit or from the passed variable on default
 		if (Factory::getApplication()->input->get('layout') == 'edit') {
 			$id = Factory::getApplication()->getUserState('com_snippets.edit.snippet.id');
-		} else {
+		}
+		else {
 			$id = Factory::getApplication()->input->get('id');
 			Factory::getApplication()->setUserState('com_snippets.edit.snippet.id', $id);
 		}
@@ -62,7 +64,7 @@ class SnippetModel extends ItemModel
 		$this->setState('snippet.id', $id);
 
 		// Load the parameters.
-		$params = $app->getParams();
+		$params       = $app->getParams();
 		$params_array = $params->toArray();
 
 		if (isset($params_array['item_id'])) {
@@ -96,7 +98,6 @@ class SnippetModel extends ItemModel
 			// Attempt to load the row.
 			if ($table && $table->load($id)) {
 
-
 				// Check published state.
 				if ($published = $this->getState('filter.published')) {
 					if (isset($table->state) && $table->state != $published) {
@@ -105,7 +106,7 @@ class SnippetModel extends ItemModel
 				}
 
 				// Convert the Table to a clean CMSObject.
-				$properties = $table->getProperties(1);
+				$properties  = $table->getProperties(1);
 				$this->_item = ArrayHelper::toObject($properties, CMSObject::class);
 			}
 
@@ -119,7 +120,7 @@ class SnippetModel extends ItemModel
 		$userFactory = $container->get(UserFactoryInterface::class);
 
 		if (isset($this->_item->created_by)) {
-			$user = $userFactory->loadUserById($this->_item->created_by);
+			$user                         = $userFactory->loadUserById($this->_item->created_by);
 			$this->_item->created_by_name = $user->name;
 		}
 
@@ -128,7 +129,7 @@ class SnippetModel extends ItemModel
 		$userFactory = $container->get(UserFactoryInterface::class);
 
 		if (isset($this->_item->modified_by)) {
-			$user = $userFactory->loadUserById($this->_item->modified_by);
+			$user                          = $userFactory->loadUserById($this->_item->modified_by);
 			$this->_item->modified_by_name = $user->name;
 		}
 
@@ -159,10 +160,10 @@ class SnippetModel extends ItemModel
 	 */
 	public function getItemIdByAlias($alias)
 	{
-		$table = $this->getTable();
+		$table      = $this->getTable();
 		$properties = $table->getProperties();
-		$result = null;
-		$aliasKey = null;
+		$result     = null;
+		$aliasKey   = null;
 		if (method_exists($this, 'getAliasFieldNameByView')) {
 			$aliasKey = $this->getAliasFieldNameByView('snippet');
 		}
@@ -170,7 +171,8 @@ class SnippetModel extends ItemModel
 		if (key_exists('alias', $properties)) {
 			$table->load(array('alias' => $alias));
 			$result = $table->id;
-		} elseif (isset($aliasKey) && key_exists($aliasKey, $properties)) {
+		}
+		elseif (isset($aliasKey) && key_exists($aliasKey, $properties)) {
 			$table->load(array($aliasKey => $alias));
 			$result = $table->id;
 		}
@@ -220,7 +222,6 @@ class SnippetModel extends ItemModel
 	{
 		// Get the user id.
 		$id = (!empty($id)) ? $id : (int) $this->getState('snippet.id');
-
 
 		if ($id) {
 			// Initialise the table
@@ -287,7 +288,7 @@ class SnippetModel extends ItemModel
 	 */
 	public function getSnippetCatId(int $snippetId)
 	{
-		$db = $this->getDatabase();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true)
 			->select($db->quoteName('cat_id'))
 			->from($db->quoteName('#__snippets'))
@@ -305,4 +306,5 @@ class SnippetModel extends ItemModel
 				break;
 		}
 	}
+
 }

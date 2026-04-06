@@ -42,4 +42,5 @@ class SnippetsController extends FormController
 	{
 		return parent::getModel($name, $prefix, array('ignore_request' => true));
 	}
+
 }

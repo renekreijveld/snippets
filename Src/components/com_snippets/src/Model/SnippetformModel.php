@@ -8,6 +8,7 @@
  */
 
 namespace Snippets\Component\Snippets\Site\Model;
+
 // No direct access.
 defined('_JEXEC') or die;
 
@@ -28,10 +29,6 @@ class SnippetformModel extends FormModel
 {
 	private $item = null;
 
-
-
-
-
 	/**
 	 * Method to auto-populate the model state.
 	 *
@@ -50,7 +47,8 @@ class SnippetformModel extends FormModel
 		// Load state from the request userState on edit or from the passed variable on default
 		if (Factory::getApplication()->input->get('layout') == 'edit') {
 			$id = Factory::getApplication()->getUserState('com_snippets.edit.snippet.id');
-		} else {
+		}
+		else {
 			$id = Factory::getApplication()->input->get('id');
 			Factory::getApplication()->setUserState('com_snippets.edit.snippet.id', $id);
 		}
@@ -58,7 +56,7 @@ class SnippetformModel extends FormModel
 		$this->setState('snippet.id', $id);
 
 		// Load the parameters.
-		$params = $app->getParams();
+		$params       = $app->getParams();
 		$params_array = $params->toArray();
 
 		if (isset($params_array['item_id'])) {
@@ -87,14 +85,13 @@ class SnippetformModel extends FormModel
 			}
 
 			// Get a level row instance.
-			$table = $this->getTable();
+			$table      = $this->getTable();
 			$properties = $table->getProperties();
 			$this->item = ArrayHelper::toObject($properties, CMSObject::class);
 
 			if ($table !== false && $table->load($id) && !empty($table->id)) {
 				$user = Factory::getApplication()->getIdentity();
-				$id = $table->id;
-
+				$id   = $table->id;
 
 				$canEdit = $user->authorise('core.edit', 'com_snippets') || $user->authorise('core.create', 'com_snippets');
 
@@ -120,7 +117,6 @@ class SnippetformModel extends FormModel
 				if (isset($this->item->cat_id) && is_object($this->item->cat_id)) {
 					$this->item->cat_id = ArrayHelper::fromObject($this->item->cat_id);
 				}
-
 
 			}
 		}
@@ -151,7 +147,7 @@ class SnippetformModel extends FormModel
 	 */
 	public function getItemIdByAlias($alias)
 	{
-		$table = $this->getTable();
+		$table      = $this->getTable();
 		$properties = $table->getProperties();
 
 		if (!in_array('alias', $properties)) {
@@ -160,7 +156,6 @@ class SnippetformModel extends FormModel
 
 		$table->load(array('alias' => $alias));
 		$id = $table->id;
-
 
 		return $id;
 
@@ -248,7 +243,7 @@ class SnippetformModel extends FormModel
 			'com_snippets.snippet',
 			'snippetform',
 			array(
-				'control' => 'jform',
+				'control'   => 'jform',
 				'load_data' => $loadData
 			)
 		);
@@ -276,7 +271,6 @@ class SnippetformModel extends FormModel
 
 		if ($data) {
 
-
 			return $data;
 		}
 
@@ -295,15 +289,15 @@ class SnippetformModel extends FormModel
 	 */
 	public function save($data)
 	{
-		$id = (!empty($data['id'])) ? $data['id'] : (int) $this->getState('snippet.id');
+		$id    = (!empty($data['id'])) ? $data['id'] : (int) $this->getState('snippet.id');
 		$state = (!empty($data['state'])) ? 1 : 0;
-		$user = Factory::getApplication()->getIdentity();
-
+		$user  = Factory::getApplication()->getIdentity();
 
 		if ($id) {
 			// Check the user can edit this item
 			$authorised = $user->authorise('core.edit', 'com_snippets') || $authorised = $user->authorise('core.edit.own', 'com_snippets');
-		} else {
+		}
+		else {
 			// Check the user can create new items in this section
 			$authorised = $user->authorise('core.create', 'com_snippets');
 		}
@@ -349,11 +343,13 @@ class SnippetformModel extends FormModel
 				$dispatcher->dispatch('onContentAfterSave', $afterSaveEvent);
 
 				return $table->id;
-			} else {
+			}
+			else {
 				Factory::getApplication()->enqueueMessage($table->getError(), 'error');
 				return false;
 			}
-		} catch (\Exception $e) {
+		}
+		catch (\Exception $e) {
 			Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 			return false;
 		}
@@ -374,7 +370,6 @@ class SnippetformModel extends FormModel
 	public function delete($id)
 	{
 		$user = Factory::getApplication()->getIdentity();
-
 
 		if (empty($id)) {
 			$id = (int) $this->getState('snippet.id');
@@ -432,4 +427,5 @@ class SnippetformModel extends FormModel
 				break;
 		}
 	}
+
 }

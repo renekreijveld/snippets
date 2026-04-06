@@ -91,4 +91,5 @@ class DisplayController extends \Joomla\CMS\MVC\Controller\BaseController
                 break;
         }
     }
+
 }

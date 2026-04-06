@@ -46,7 +46,8 @@ $canEdit = $user->authorise('core.edit', 'com_snippets') || $user->authorise('co
             <h1><?= Text::_('SNIPPETS_ADD_CATEGORY_TITLE'); ?></h1>
         <?php endif; ?>
 
-        <form id="form-category" action="<?= Route::_('index.php?option=com_snippets&task=categoryform.save'); ?>" method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
+        <form id="form-category" action="<?= Route::_('index.php?option=com_snippets&task=categoryform.save'); ?>"
+            method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
             <input type="hidden" name="jform[id]" value="<?= isset($this->item->id) ? $this->item->id : ''; ?>" />
             <input type="hidden" name="jform[extension]" value="com_snippets.snippets" />
             <?= HTMLHelper::_('uitab.startTabSet', 'myTab', array('active' => 'category')); ?>
@@ -84,7 +85,9 @@ $canEdit = $user->authorise('core.edit', 'com_snippets') || $user->authorise('co
                             <?= Text::_('SNIPPETS_SAVE'); ?>
                         </button>
                     <?php endif; ?>
-                    <a class="btn btn-danger btn-sm" href="<?= Route::_('index.php?option=com_snippets&task=categoryform.cancel'); ?>" title="<?= Text::_('JCANCEL'); ?>">
+                    <a class="btn btn-danger btn-sm"
+                        href="<?= Route::_('index.php?option=com_snippets&task=categoryform.cancel'); ?>"
+                        title="<?= Text::_('JCANCEL'); ?>">
                         <span class="fas fa-times me-1" aria-hidden="true"></span> <?= Text::_('JCANCEL'); ?>
                     </a>
                 </div>

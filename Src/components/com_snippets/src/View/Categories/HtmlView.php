@@ -63,15 +63,15 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @since   1.0.0
 	 */
-	public function display($tpl = null): void
+	public function display($tpl = null) : void
 	{
 		$app = Factory::getApplication();
 
-		$this->state = $this->get('State');
-		$this->items = $this->get('Items');
-		$this->pagination = $this->get('Pagination');
-		$this->params = $app->getParams('com_snippets');
-		$this->filterForm = $this->get('FilterForm');
+		$this->state         = $this->get('State');
+		$this->items         = $this->get('Items');
+		$this->pagination    = $this->get('Pagination');
+		$this->params        = $app->getParams('com_snippets');
+		$this->filterForm    = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 
 		// Check for errors.
@@ -92,9 +92,9 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @since   1.0.0
 	 */
-	protected function _prepareDocument(): void
+	protected function _prepareDocument() : void
 	{
-		$app = Factory::getApplication();
+		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
 		$title = null;
 
@@ -102,7 +102,8 @@ class HtmlView extends BaseHtmlView
 
 		if ($menu) {
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
-		} else {
+		}
+		else {
 			$this->params->def('page_heading', Text::_('SNIPPETS_CATEGORIES_PAGE_TITLE'));
 		}
 
@@ -110,9 +111,11 @@ class HtmlView extends BaseHtmlView
 
 		if (empty($title)) {
 			$title = $app->get('sitename');
-		} elseif ($app->get('sitename_pagetitles', 0) == 1) {
+		}
+		elseif ($app->get('sitename_pagetitles', 0) == 1) {
 			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
-		} elseif ($app->get('sitename_pagetitles', 0) == 2) {
+		}
+		elseif ($app->get('sitename_pagetitles', 0) == 2) {
 			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
@@ -144,4 +147,5 @@ class HtmlView extends BaseHtmlView
 	{
 		return isset($this->state->{$state}) ? $this->state->{$state} : false;
 	}
+
 }

@@ -11,11 +11,8 @@ defined('_JEXEC') or die;
 
 use \Joomla\CMS\HTML\HTMLHelper;
 use \Joomla\CMS\Factory;
-use \Joomla\CMS\Uri\Uri;
 use \Joomla\CMS\Router\Route;
 use \Joomla\CMS\Language\Text;
-use \Joomla\CMS\Layout\LayoutHelper;
-use \Joomla\CMS\Session\Session;
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip', []);
 
@@ -43,16 +40,19 @@ $wa->useStyle('com_snippets.snippets');
     <div class="col-auto snippetCategories">
         <div>
             <?php if ($canCreate) : ?>
-                <a title="<?= Text::_('SNIPPETS_ADD_CATEGORY'); ?>" href="<?= Route::_('index.php?option=com_snippets&task=categoryform.edit&id=0', false, 0); ?>" class="btn btn-primary btn-mini hasTooltip"><i class="icon-plus"></i></a>
+                <a title="<?= Text::_('SNIPPETS_ADD_CATEGORY'); ?>"
+                    href="<?= Route::_('index.php?option=com_snippets&task=categoryform.edit&id=0', false, 0); ?>"
+                    class="btn btn-primary btn-mini hasTooltip"><i class="icon-plus"></i></a>
             <?php endif; ?>
         </div>
         <ul class="nav flex-column">
             <?php foreach ($this->items as $item) : ?>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= Route::_('index.php?option=com_snippets&view=category&id=' . (int) $item->id); ?>">
-                    <?= $this->escape($item->title); ?>
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="<?= Route::_('index.php?option=com_snippets&view=category&id=' . (int) $item->id); ?>">
+                        <?= $this->escape($item->title); ?>
+                    </a>
+                </li>
             <?php endforeach; ?>
         </ul>
     </div>

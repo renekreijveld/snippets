@@ -73,15 +73,15 @@ class CategoriesModel extends ListModel
 	 *
 	 * @since   1.0.0
 	 */
-	protected function populateState($ordering = null, $direction = null): void
+	protected function populateState($ordering = null, $direction = null) : void
 	{
 		// List state information.
 		parent::populateState('a.title', 'ASC');
 
-		$app = Factory::getApplication();
+		$app  = Factory::getApplication();
 		$list = $app->getUserState($this->context . '.list');
 
-		$value = $app->getUserState($this->context . '.list.limit', $app->get('list_limit', 25));
+		$value         = $app->getUserState($this->context . '.list.limit', $app->get('list_limit', 25));
 		$list['limit'] = $value;
 
 		$this->setState('list.limit', $value);
@@ -89,7 +89,7 @@ class CategoriesModel extends ListModel
 		$value = $app->input->get('limitstart', 0, 'uint');
 		$this->setState('list.start', $value);
 
-		$ordering = $this->getUserStateFromRequest($this->context . '.filter_order', 'filter_order', 'a.lft');
+		$ordering  = $this->getUserStateFromRequest($this->context . '.filter_order', 'filter_order', 'a.lft');
 		$direction = strtoupper($this->getUserStateFromRequest($this->context . '.filter_order_Dir', 'filter_order_Dir', 'ASC'));
 
 		if (!empty($ordering) || !empty($direction)) {
@@ -119,9 +119,9 @@ class CategoriesModel extends ListModel
 	 *
 	 * @since   1.0.0
 	 */
-	protected function getListQuery(): \Joomla\Database\DatabaseQuery
+	protected function getListQuery() : \Joomla\Database\DatabaseQuery
 	{
-		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		$db    = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 
 		// Select the required fields from the table.
@@ -147,7 +147,8 @@ class CategoriesModel extends ListModel
 		// Filter by published state.
 		if (!Factory::getApplication()->getIdentity()->authorise('core.edit', 'com_snippets')) {
 			$query->where($db->quoteName('a.published') . ' = 1');
-		} else {
+		}
+		else {
 			$query->where($db->quoteName('a.published') . ' IN (0, 1)');
 		}
 
@@ -159,14 +160,15 @@ class CategoriesModel extends ListModel
 				$searchId = (int) substr($search, 3);
 				$query->where($db->quoteName('a.id') . ' = :searchId')
 					->bind(':searchId', $searchId, ParameterType::INTEGER);
-			} else {
+			}
+			else {
 				$search = '%' . $db->escape($search, true) . '%';
 				$query->where($db->quoteName('a.title') . ' LIKE ' . $db->quote($search));
 			}
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'a.title');
+		$orderCol  = $this->state->get('list.ordering', 'a.title');
 		$orderDirn = $this->state->get('list.direction', 'ASC');
 
 		if ($orderCol && $orderDirn) {
@@ -183,7 +185,7 @@ class CategoriesModel extends ListModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getItems(): mixed
+	public function getItems() : mixed
 	{
 		$items = parent::getItems();
 
@@ -192,7 +194,7 @@ class CategoriesModel extends ListModel
 		foreach ($items as $item) {
 			// Count snippets assigned to this category using FIND_IN_SET.
 			$categoryId = (int) $item->id;
-			$query = $db->getQuery(true);
+			$query      = $db->getQuery(true);
 
 			$query->select('COUNT(*)')
 				->from($db->quoteName('#__snippets'))
@@ -214,15 +216,15 @@ class CategoriesModel extends ListModel
 	 *
 	 * @since   1.0.0
 	 */
-	protected function loadFormData(): mixed
+	protected function loadFormData() : mixed
 	{
-		$app = Factory::getApplication();
-		$filters = $app->getUserState($this->context . '.filter', array());
+		$app              = Factory::getApplication();
+		$filters          = $app->getUserState($this->context . '.filter', array());
 		$error_dateformat = false;
 
 		foreach ($filters as $key => $value) {
 			if (strpos($key, '_dateformat') && !empty($value) && $this->isValidDate($value) == null) {
-				$filters[$key] = '';
+				$filters[$key]    = '';
 				$error_dateformat = true;
 			}
 		}
@@ -244,10 +246,11 @@ class CategoriesModel extends ListModel
 	 *
 	 * @since   1.0.0
 	 */
-	private function isValidDate(string $date): ?string
+	private function isValidDate(string $date) : ?string
 	{
 		$date = str_replace('/', '-', $date);
 
 		return (date_create($date)) ? Factory::getDate($date)->format('Y-m-d') : null;
 	}
+
 }

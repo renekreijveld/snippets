@@ -61,7 +61,8 @@ class SnippetcategoryField extends ListField
             foreach ($categories as $cat) {
                 if ($cat->id == $this->value) {
                     $html[] = '<option value="' . $cat->id . '" selected>' . $cat->title . '</option>';
-                } else {
+                }
+                else {
                     $html[] = '<option value="' . $cat->id . '">' . $cat->title . '</option>';
                 }
             }
@@ -70,4 +71,5 @@ class SnippetcategoryField extends ListField
 
         return implode($html);
     }
+
 }

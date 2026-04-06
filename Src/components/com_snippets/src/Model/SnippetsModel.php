@@ -8,6 +8,7 @@
  */
 
 namespace Snippets\Component\Snippets\Site\Model;
+
 // No direct access.
 defined('_JEXEC') or die;
 
@@ -81,10 +82,10 @@ class SnippetsModel extends ListModel
 		// List state information.
 		parent::populateState("a.id", "ASC");
 
-		$app = Factory::getApplication();
+		$app  = Factory::getApplication();
 		$list = $app->getUserState($this->context . '.list');
 
-		$value = $app->getUserState($this->context . '.list.limit', $app->get('list_limit', 25));
+		$value         = $app->getUserState($this->context . '.list.limit', $app->get('list_limit', 25));
 		$list['limit'] = $value;
 
 		$this->setState('list.limit', $value);
@@ -92,7 +93,7 @@ class SnippetsModel extends ListModel
 		$value = $app->input->get('limitstart', 0, 'uint');
 		$this->setState('list.start', $value);
 
-		$ordering = $this->getUserStateFromRequest($this->context . '.filter_order', 'filter_order', "a.id");
+		$ordering  = $this->getUserStateFromRequest($this->context . '.filter_order', 'filter_order', "a.id");
 		$direction = strtoupper($this->getUserStateFromRequest($this->context . '.filter_order_Dir', 'filter_order_Dir', "ASC"));
 
 		if (!empty($ordering) || !empty($direction)) {
@@ -127,7 +128,7 @@ class SnippetsModel extends ListModel
 	protected function getListQuery()
 	{
 		// Create a new query object.
-		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		$db    = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 
 		// Select the required fields from the table.
@@ -146,7 +147,8 @@ class SnippetsModel extends ListModel
 
 		if (!Factory::getApplication()->getIdentity()->authorise('core.edit', 'com_snippets')) {
 			$query->where('a.state = 1');
-		} else {
+		}
+		else {
 			$query->where('(a.state IN (0, 1))');
 		}
 
@@ -156,7 +158,8 @@ class SnippetsModel extends ListModel
 		if (!empty($search)) {
 			if (stripos($search, 'id:') === 0) {
 				$query->where('a.id = ' . (int) substr($search, 3));
-			} else {
+			}
+			else {
 				$search = $db->Quote('%' . $db->escape($search, true) . '%');
 				$query->where('( a.title LIKE ' . $search . ' )');
 			}
@@ -181,7 +184,7 @@ class SnippetsModel extends ListModel
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', "a.id");
+		$orderCol  = $this->state->get('list.ordering', "a.id");
 		$orderDirn = $this->state->get('list.direction', "ASC");
 
 		if ($orderCol && $orderDirn) {
@@ -204,7 +207,7 @@ class SnippetsModel extends ListModel
 
 			if (isset($item->cat_id) && $item->cat_id != '') {
 
-				$db = Factory::getContainer()->get(DatabaseInterface::class);
+				$db    = Factory::getContainer()->get(DatabaseInterface::class);
 				$query = $db->getQuery(true);
 
 				$query
@@ -232,13 +235,13 @@ class SnippetsModel extends ListModel
 	 */
 	protected function loadFormData()
 	{
-		$app = Factory::getApplication();
-		$filters = $app->getUserState($this->context . '.filter', array());
+		$app              = Factory::getApplication();
+		$filters          = $app->getUserState($this->context . '.filter', array());
 		$error_dateformat = false;
 
 		foreach ($filters as $key => $value) {
 			if (strpos($key, '_dateformat') && !empty($value) && $this->isValidDate($value) == null) {
-				$filters[$key] = '';
+				$filters[$key]    = '';
 				$error_dateformat = true;
 			}
 		}
@@ -263,4 +266,5 @@ class SnippetsModel extends ListModel
 		$date = str_replace('/', '-', $date);
 		return (date_create($date)) ? Factory::getDate($date)->format("Y-m-d") : null;
 	}
+
 }

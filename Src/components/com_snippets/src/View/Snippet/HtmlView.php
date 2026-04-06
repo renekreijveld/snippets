@@ -9,6 +9,7 @@
  */
 
 namespace Snippets\Component\Snippets\Site\View\Snippet;
+
 // No direct access
 defined('_JEXEC') or die;
 
@@ -49,7 +50,7 @@ class HtmlView extends BaseHtmlView
      */
     public $snippetModel;
 
-    public array $categories = [];
+    public array  $categories = [];
     public object $category;
 
     /**
@@ -63,24 +64,24 @@ class HtmlView extends BaseHtmlView
      */
     public function display($tpl = null)
     {
-        $app = Factory::getApplication();
+        $app  = Factory::getApplication();
         $user = $app->getIdentity();
 
-        $this->snippetModel = $this->getModel('Snippet');
-        $this->categoryModel = $this->getModel('Category');
+        $this->model           = $this->getModel('Snippet');
+        $this->categoryModel   = $this->getModel('Category');
         $this->categoriesModel = $this->getModel('Categories');
-        $this->item = $this->snippetModel->getItem();
-        $this->categories = $this->categoriesModel->getItems();
-        $this->snippets = $this->categoryModel->getSnippetsForCategory($this->item->cat_id);
-        $this->state = $this->get('State');
-        $this->params = $app->getParams('com_snippets');
+        $this->item            = $this->model->getItem();
+        $this->categories      = $this->categoriesModel->getItems();
+        $this->snippets        = $this->categoryModel->getSnippetsForCategory($this->item->cat_id);
+        $this->state           = $this->model->getState();
+        $this->params          = $app->getParams('com_snippets');
 
         if (!empty($this->item)) {
-            $this->form = $this->get('Form');
+            $this->form = $this->model->get('Form');
         }
 
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
+        if (count($errors = $this->model->getErrors())) {
             throw new \Exception(implode("\n", $errors));
         }
 
@@ -106,7 +107,7 @@ class HtmlView extends BaseHtmlView
      */
     protected function _prepareDocument()
     {
-        $app = Factory::getApplication();
+        $app   = Factory::getApplication();
         $menus = $app->getMenu();
         $title = null;
 
@@ -116,7 +117,8 @@ class HtmlView extends BaseHtmlView
 
         if ($menu) {
             $this->params->def('page_heading', $this->params->get('page_title', $menu->title));
-        } else {
+        }
+        else {
             $this->params->def('page_heading', Text::_('SNIPPETS_DEFAULT_PAGE_TITLE'));
         }
 
@@ -124,9 +126,11 @@ class HtmlView extends BaseHtmlView
 
         if (empty($title)) {
             $title = $app->get('sitename');
-        } elseif ($app->get('sitename_pagetitles', 0) == 1) {
+        }
+        elseif ($app->get('sitename_pagetitles', 0) == 1) {
             $title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
-        } elseif ($app->get('sitename_pagetitles', 0) == 2) {
+        }
+        elseif ($app->get('sitename_pagetitles', 0) == 2) {
             $title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
         }
 
@@ -144,4 +148,5 @@ class HtmlView extends BaseHtmlView
             $this->document->setMetadata('robots', $this->params->get('robots'));
         }
     }
+
 }
