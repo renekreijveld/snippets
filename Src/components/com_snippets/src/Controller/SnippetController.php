@@ -165,6 +165,8 @@ class SnippetController extends BaseController
 			// Get the user data.
 			$id = $this->input->getInt('id', 0);
 
+			$catId = $model->getSnippetCatId($id);
+
 			// Attempt to save the data.
 			$return = $model->delete($id);
 
@@ -180,8 +182,7 @@ class SnippetController extends BaseController
 				$this->app->setUserState('com_snippets.edit.snippet.id', null);
 				$this->app->setUserState('com_snippets.edit.snippet.data', null);
 
-				$this->app->enqueueMessage(Text::_('SNIPPETS_ITEM_DELETED_SUCCESSFULLY'), 'success');
-				$this->app->redirect(Route::_('index.php?option=com_snippets&view=snippets', false));
+				$this->app->redirect(Route::_('index.php?option=com_snippets&view=category&id=' . (int) $catId, false));
 			}
 
 			// Redirect to the list screen.

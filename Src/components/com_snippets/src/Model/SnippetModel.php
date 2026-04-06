@@ -12,12 +12,13 @@ namespace Snippets\Component\Snippets\Site\Model;
 defined('_JEXEC') or die;
 
 use \Joomla\CMS\Factory;
-use \Joomla\Utilities\ArrayHelper;
 use \Joomla\CMS\Language\Text;
-use \Joomla\CMS\Table\Table;
 use \Joomla\CMS\MVC\Model\ItemModel;
 use \Joomla\CMS\Object\CMSObject;
+use \Joomla\CMS\Table\Table;
 use \Joomla\CMS\User\UserFactoryInterface;
+use \Joomla\Database\ParameterType;
+use \Joomla\Utilities\ArrayHelper;
 
 /**
  * Snippets model.
@@ -166,7 +167,6 @@ class SnippetModel extends ItemModel
 			$aliasKey = $this->getAliasFieldNameByView('snippet');
 		}
 
-
 		if (key_exists('alias', $properties)) {
 			$table->load(array('alias' => $alias));
 			$result = $table->id;
@@ -269,9 +269,31 @@ class SnippetModel extends ItemModel
 	{
 		$table = $this->getTable();
 
-
 		return $table->delete($id);
+	}
 
+	/**
+	 * Retrieves the category ID (or comma-separated category IDs) for a given snippet.
+	 *
+	 * Queries the #__snippets table and returns the raw cat_id value for the
+	 * specified snippet. Since cat_id may contain multiple category IDs stored as
+	 * a comma-separated string, use FIND_IN_SET for category-based filtering queries.
+	 *
+	 * @param   int  $snippetId  The ID of the snippet to retrieve the category ID for.
+	 *
+	 * @return  string|null  The cat_id value of the snippet, or null if not found.
+	 *
+	 * @since   1.0.0
+	 */
+	public function getSnippetCatId(int $snippetId)
+	{
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true)
+			->select($db->quoteName('cat_id'))
+			->from($db->quoteName('#__snippets'))
+			->where($db->quoteName('id') . ' = :id')
+			->bind(':id', $snippetId, ParameterType::INTEGER);
+		return $db->setQuery($query)->loadResult();
 	}
 
 	public function getAliasFieldNameByView($view)
