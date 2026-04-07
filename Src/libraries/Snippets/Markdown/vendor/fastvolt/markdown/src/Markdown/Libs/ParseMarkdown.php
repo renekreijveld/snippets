@@ -1480,7 +1480,7 @@ class ParseMarkdown
         }
 
         if ($markdownElement['name'] === 'pre') {
-            $onclick = "var b=this,c=b.querySelector('.fv-copy-icon'),k=b.querySelector('.fv-check-icon');navigator.clipboard.writeText(this.closest('.fv-code-block').querySelector('code').innerText).then(function(){c.style.display='none';k.style.display='inline';setTimeout(function(){c.style.display='inline';k.style.display='none';},2000)});";
+            $onclick = "var b=this,c=b.querySelector('.fv-copy-icon'),k=b.querySelector('.fv-check-icon'),t=this.closest('.fv-code-block').querySelector('code').innerText;function s(){c.style.display='none';k.style.display='inline';setTimeout(function(){c.style.display='inline';k.style.display='none';},2000);}if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(s);}else{var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.left='-9999px';document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);s();}";
             $btnStyle = 'position:absolute;top:8px;right:8px;background:transparent;border:none;cursor:pointer;color:#aaa;font-size:1em;line-height:1;padding:2px 4px;z-index:1;';
             $copyIconStyle = 'display:inline;';
             $checkIconStyle = 'display:none;';
