@@ -262,7 +262,8 @@ class CategoryModel extends ItemModel
 	}
 
 	/**
-	 * Method to delete an item.
+	 * Method to delete a snippet category.
+     * If deletion of the category is successfull, all snippets from the category are also deleted.
 	 *
 	 * @param   int  $id  Element id.
 	 *
@@ -272,9 +273,47 @@ class CategoryModel extends ItemModel
 	 */
 	public function delete(int $id) : bool
 	{
-		$table = $this->getTable();
+        $db = $this->getDatabase();
 
-		return $table->delete($id);
+        $db->transactionStart();
+
+        // Delete category
+        $query = $db->getQuery(true)
+            ->delete($db->quoteName('#__categories'))
+            ->where($db->quoteName('id') . ' = :id')
+            ->bind(':id', $id, ParameterType::INTEGER);
+        $db->setQuery($query);
+
+        try {
+            $db->execute();
+        }
+        catch (Exception $e) {
+            $db->transactionRollback();
+            Factory::getApplication()->enqueueMessage(Text::_('Error deleting category'), 'error');
+            return false;
+        }
+
+        $snippetModel = $this->getMVCFactory()->createModel('Snippet', 'Site', ['ignore_request' => true]);
+
+        $query = $db->getQuery(true)
+            ->select($db->quoteName('id'))
+            ->from($db->quoteName('#__snippets'))
+            ->where($db->quoteName('cat_id') . ' = :cat_id')
+            ->bind(':cat_id', $id, ParameterType::INTEGER);
+        $db->setQuery($query);
+        $snippetIds = $db->loadObjectlist();
+
+        foreach ($snippetIds as $snippet) {
+            $success = $snippetModel->delete($snippet->id);
+            if (! $success) {
+                $db->transactionRollback();
+                Factory::getApplication()->enqueueMessage(Text::_('Error deleting snippet from category'), 'error');
+                return false;
+            }
+        }
+
+        $db->transactionCommit();
+
+        return true;
 	}
-
 }

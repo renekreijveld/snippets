@@ -269,7 +269,6 @@ class SnippetModel extends ItemModel
 	public function delete($id)
 	{
 		$table = $this->getTable();
-
 		return $table->delete($id);
 	}
 
