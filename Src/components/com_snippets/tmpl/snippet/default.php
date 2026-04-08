@@ -142,14 +142,14 @@ $wa->useStyle('com_snippets.highlight')
                 </div>
                 <?php if ($canDelete) : ?>
                     <div>
-                        <a class="btn btn-danger btn-sm" rel="noopener noreferrer" href="#deleteModal" role="button"
+                        <a class="btn btn-danger btn-sm" rel="noopener noreferrer" href="#deleteSnippetModal" role="button"
                             data-bs-toggle="modal">
                             <i title="<?= Text::_("SNIPPETS_DELETE_SNIPPET"); ?>" class="fas fa-trash hasTooltip"></i>
                         </a>
                     </div>
                     <?= HTMLHelper::_(
                         'bootstrap.renderModal',
-                        'deleteModal',
+                        'deleteSnippetModal',
                         array(
                             'title'      => Text::_('SNIPPETS_DELETE_SNIPPET'),
                             'height'     => '50%',
