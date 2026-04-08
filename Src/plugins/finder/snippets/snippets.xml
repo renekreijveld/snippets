@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" group="finder" method="upgrade">
     <name>plg_finder_snippets</name>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <creationDate>2026-04-02</creationDate>
     <author>René Kreijveld</author>
     <authorEmail>email@renekreijveld.nl</authorEmail>

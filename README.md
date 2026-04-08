@@ -3,8 +3,8 @@
 A Joomla 5+ component for managing and displaying reusable code snippets or content blocks, with frontend submission and category support.
 
 - **Author:** René Kreijveld — [github.com/renekreijveld](https://github.com/renekreijveld)
-- **Version:** 1.0.6
-- **License:** GNU GPL v2+
+- **Version:** 1.0.7
+- **License:** GNU GPL v3
 
 ## Features
 
@@ -27,7 +27,7 @@ A Joomla 5+ component for managing and displaying reusable code snippets or cont
 
 ## Installation
 
-1. Download the latest `snippets_x.x.x.zip` package from the `Distro/` folder.
+1. Download the latest `snippets-1.0.7.zip` package from the `Distro/` folder.
 2. In the Joomla administrator, go to **System → Install → Extensions**.
 3. Upload and install the package file.
 

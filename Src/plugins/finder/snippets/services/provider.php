@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @version    1.0.7
  * @package    Snippets.Plugin
  * @subpackage Finder.Snippets
  * @author     René Kreijveld <email@renekreijveld.nl>
