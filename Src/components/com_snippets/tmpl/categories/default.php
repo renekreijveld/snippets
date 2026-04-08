@@ -45,6 +45,7 @@ $wa->useStyle('com_snippets.snippets');
                     class="btn btn-primary btn-mini hasTooltip"><i class="icon-plus"></i></a>
             <?php endif; ?>
         </div>
+        <hr>
         <ul class="nav flex-column">
             <?php foreach ($this->items as $item) : ?>
                 <li class="nav-item">

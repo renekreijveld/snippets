@@ -157,7 +157,7 @@ class SnippetformController extends FormController
 		}
 
 		// Redirect back to category view
-		$this->setRedirect(Route::_('index.php?option=com_snippets&view=category&id=' . (int) $catId), false);
+		$this->setRedirect(Route::_('index.php?option=com_snippets&view=snippet&id=' . (int) $return . '&catid=' . $catId), false);
 
 		// Flush the data from the session.
 		$this->app->setUserState('com_snippets.edit.snippet.data', null);
