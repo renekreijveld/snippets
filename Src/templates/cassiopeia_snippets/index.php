@@ -141,25 +141,16 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
 ?>">
     <div style="width: 75%; margin: 0 auto;">
         <header class="header container-header p-2 full-width<?php echo $stickyHeader ? ' ' . $stickyHeader : ''; ?>">
-
-            <?php if ($this->countModules('topbar')) : ?>
-                <div class="container-topbar">
-                    <jdoc:include type="modules" name="topbar" style="none" />
-                </div>
-            <?php endif; ?>
-
-            <?php if ($this->countModules('menu', true) || $this->countModules('search', true)) : ?>
-                <div class="grid-child container-nav">
-                    <?php if ($this->countModules('menu', true)) : ?>
+            <div class="container-topbar">
+                <div class="row">
+                    <div class="col-auto">
+                        <jdoc:include type="modules" name="search" style="none" />
+                    </div>
+                    <div class="col-auto container-nav ms-auto pe-3">
                         <jdoc:include type="modules" name="menu" style="none" />
-                    <?php endif; ?>
-                    <?php if ($this->countModules('search', true)) : ?>
-                        <div class="container-search">
-                            <jdoc:include type="modules" name="search" style="none" />
-                        </div>
-                    <?php endif; ?>
+                    </div>
                 </div>
-            <?php endif; ?>
+            </div>
         </header>
 
         <div class="row mt-3">
