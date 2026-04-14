@@ -5,7 +5,7 @@
  *
  * Indexes snippet titles and content so they can be found via Joomla's Smart Search.
  *
- * @version    1.0.7
+ * @version    1.0.8
  * @package    Snippets.Plugin
  * @subpackage Finder.Snippets
  * @author     René Kreijveld <email@renekreijveld.nl>
