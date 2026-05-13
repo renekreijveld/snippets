@@ -37,7 +37,7 @@ $wa->useStyle('com_snippets.snippets');
     </div>
 <?php endif; ?>
 <div class="row">
-    <div class="col-auto snippetCategories">
+    <div class="col-auto snippetCategories ps-3">
         <div>
             <?php if ($canCreate) : ?>
                 <a title="<?= Text::_('SNIPPETS_ADD_CATEGORY'); ?>"
@@ -46,7 +46,7 @@ $wa->useStyle('com_snippets.snippets');
             <?php endif; ?>
         </div>
         <hr>
-        <ul class="nav flex-column">
+        <ul class="nav flex-column ps-2">
             <?php foreach ($this->items as $item) : ?>
                 <li class="nav-item">
                     <a class="nav-link"

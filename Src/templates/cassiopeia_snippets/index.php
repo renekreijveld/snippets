@@ -127,6 +127,8 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
         .com-content-category__table {display: none;}
     </style>
     <?php endif; ?>
+    <?php if ($option !== 'com_snippets') : ?>
+    <?php endif; ?>
 
 </head>
 
@@ -139,52 +141,50 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
     . ($pageclass ? ' ' . $pageclass : '')
     . ($this->direction == 'rtl' ? ' rtl' : '');
 ?>">
-    <div style="width: 75%; margin: 0 auto;">
-        <header class="header container-header p-2 full-width<?php echo $stickyHeader ? ' ' . $stickyHeader : ''; ?>">
-            <div class="container-topbar">
-                <div class="row">
-                    <div class="col-auto">
-                        <jdoc:include type="modules" name="search" style="none" />
-                    </div>
-                    <div class="col-auto container-nav ms-auto pe-3">
-                        <jdoc:include type="modules" name="menu" style="none" />
-                    </div>
+    <header class="header container-header p-2 full-width<?php echo $stickyHeader ? ' ' . $stickyHeader : ''; ?>">
+        <div class="container-topbar">
+            <div class="row">
+                <div class="col-auto">
+                    <jdoc:include type="modules" name="search" style="none" />
                 </div>
-            </div>
-        </header>
-
-        <div class="row mt-3">
-            <div class="col-12">
-                <div class="container-component">
-                    <jdoc:include type="modules" name="main-top" style="card" />
-                    <jdoc:include type="message" />
-                    <main>
-                        <jdoc:include type="component" />
-                    </main>
-                    <jdoc:include type="modules" name="main-bottom" style="card" />
+                <div class="col-auto container-nav ms-auto pe-3">
+                    <jdoc:include type="modules" name="menu" style="none" />
                 </div>
-
             </div>
         </div>
+    </header>
 
-        <?php if ($this->countModules('footer', true)) : ?>
-            <footer class="container-footer footer full-width">
-                <div class="row">
-                    <div class="col-3 p-3">
-                        <jdoc:include type="modules" name="footer" style="none" />
-                    </div>
-                </div>
-            </footer>
-        <?php endif; ?>
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="container-component">
+                <jdoc:include type="modules" name="main-top" style="card" />
+                <jdoc:include type="message" />
+                <main <?php if ($option !== 'com_snippets') echo 'class="px-3"'; ?>>
+                    <jdoc:include type="component" />
+                </main>
+                <jdoc:include type="modules" name="main-bottom" style="card" />
+            </div>
 
-        <?php if ($this->params->get('backTop') == 1) : ?>
-            <a href="#top" id="back-top" class="back-to-top-link" aria-label="<?php echo Text::_('TPL_CASSIOPEIA_BACKTOTOP'); ?>">
-                <span class="icon-arrow-up icon-fw" aria-hidden="true"></span>
-            </a>
-        <?php endif; ?>
-
-        <jdoc:include type="modules" name="debug" style="none" />
+        </div>
     </div>
+
+    <?php if ($this->countModules('footer', true)) : ?>
+        <footer class="container-footer footer full-width">
+            <div class="row">
+                <div class="col-3 p-3">
+                    <jdoc:include type="modules" name="footer" style="none" />
+                </div>
+            </div>
+        </footer>
+    <?php endif; ?>
+
+    <?php if ($this->params->get('backTop') == 1) : ?>
+        <a href="#top" id="back-top" class="back-to-top-link" aria-label="<?php echo Text::_('TPL_CASSIOPEIA_BACKTOTOP'); ?>">
+            <span class="icon-arrow-up icon-fw" aria-hidden="true"></span>
+        </a>
+    <?php endif; ?>
+
+    <jdoc:include type="modules" name="debug" style="none" />
 </body>
 
 </html>

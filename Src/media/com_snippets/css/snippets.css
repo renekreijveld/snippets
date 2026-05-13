@@ -12,8 +12,12 @@
     --btn-font-size: .800rem;
 }
 
- .snippetCategory {
-    max-width: 300px !important;
+.snippetCategories {
+    min-width: 200px !important;
+}
+
+.snippetCategory {
+    max-width: 400px !important;
 }
 
 .snippetCategories li,

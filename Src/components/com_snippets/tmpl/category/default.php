@@ -31,7 +31,7 @@ $wa->useStyle('com_snippets.snippets');
 ?>
 
 <div class="row">
-    <div class="col-auto snippetCategories">
+    <div class="col-auto snippetCategories ps-3">
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <?php if ($canCreate) : ?>
@@ -66,7 +66,7 @@ $wa->useStyle('com_snippets.snippets');
             </div>
         </div>
         <hr>
-        <ul class="nav flex-column">
+        <ul class="nav flex-column ps-2">
             <?php foreach ($this->categories as $item) : ?>
                 <li class="nav-item <?php echo $item->id == $this->item->id ? 'current' : ''; ?>">
                     <a class="nav-link active"

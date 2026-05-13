@@ -53,7 +53,7 @@ $wa->useStyle('com_snippets.highlight')
 <script>hljs.highlightAll();</script>
 
 <div class="row">
-    <div class="col-auto snippetCategories">
+    <div class="col-auto snippetCategories ps-3">
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <?php if ($canCreate) : ?>
@@ -122,7 +122,7 @@ $wa->useStyle('com_snippets.highlight')
             <?php endforeach; ?>
         </ul>
     </div>
-    <div class="col snippet">
+    <div class="col snippet pe-3">
         <h1 class="m-0 h3 lh-1"><?= $this->item->title; ?></h2>
             <hr>
             <?php $canCheckin = Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_snippets.' . $this->item->id) || $this->item->checked_out == Factory::getApplication()->getIdentity()->id; ?>
